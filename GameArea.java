@@ -1,4 +1,4 @@
-package app_TETRIS;
+package Javaris;
 
 public class GameArea { //15結合済み
     private int fieldHight = 21;

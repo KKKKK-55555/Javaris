@@ -1,4 +1,4 @@
-package app_TETRIS;
+package Javaris;
 
 import javax.swing.JFrame;
 import javax.swing.InputMap;
@@ -13,7 +13,7 @@ public class App extends JFrame {
     GameArea ga;
     Mino mino;
     Mino nextMino;
-    // Appコンストラクタ(Appをインスタンス化した際に1回呼び出されるメソッド)
+    
     public App() {
         // オブジェクトをインスタンス化してAppクラスフィールド（メンバ変数）へ追加
         this.mino = new Mino();
@@ -28,15 +28,18 @@ public class App extends JFrame {
 
     // mainメソッド 1番最初に動く特別なメソッド
     public static void main(String[] args) throws Exception {
+        // Start Screen
         System.out.println("Tetris");
         System.out.print("名前を入力してください:");
 
+        // Scan player's name
         Scanner sc = new Scanner(System.in);
         String name = sc.next();
         
         
         // 名前入力においてのルール
         int l = name.length();
+
         if(0 < l && l <= 16) {
             System.out.println("ようこそ" + name + "さん！"); 
             GameArea player = new GameArea();
@@ -78,6 +81,7 @@ public class App extends JFrame {
 
 
     }
+
 
     private void initControls() {
         InputMap im = this.getRootPane().getInputMap();

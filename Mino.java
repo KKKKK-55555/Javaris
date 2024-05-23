@@ -1,4 +1,4 @@
-package app_TETRIS;
+package Javaris;
 
 import java.util.Random;
 

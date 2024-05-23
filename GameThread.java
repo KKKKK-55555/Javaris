@@ -1,4 +1,4 @@
-package app_TETRIS;
+package Javaris;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -39,7 +39,6 @@ public class GameThread extends Thread {
 
             if (ga.isCollison(mino)) {
                 if(mino.getMinoY() <= 1){ 
-                   
                     System.out.println("GameOver");
                     System.out.println(ga.getName() + "  あなたのスコア:" + ga.getScore());
                     System.exit(0);
