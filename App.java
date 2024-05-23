@@ -16,12 +16,13 @@ public class App extends JFrame {
     
     public App() {
         // オブジェクトをインスタンス化してAppクラスフィールド（メンバ変数）へ追加
-        this.mino = new Mino();
-        this.ga = new GameArea();
-        
+        this.mino     = new Mino();
+        this.ga       = new GameArea();
         this.nextMino = new Mino();
+
         // スレッド呼び出し
         new GameThread(mino, ga).start();
+        
         // コントローラーの呼び出し
         initControls();
     }
@@ -53,11 +54,13 @@ public class App extends JFrame {
         System.out.println("EnterKeyを押してスタート！！");
         while ((System.in.read()) != '\n') ;
     
+        // ?
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new App().setVisible(true);
             }
         });
+        
         sc.close();
 
         //ゲームオーバーの定義
@@ -84,7 +87,7 @@ public class App extends JFrame {
 
 
     private void initControls() {
-        InputMap im = this.getRootPane().getInputMap();
+        InputMap  im = this.getRootPane().getInputMap();
         ActionMap am = this.getRootPane().getActionMap();
 
         im.put(KeyStroke.getKeyStroke("RIGHT"), "right");

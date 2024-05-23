@@ -11,20 +11,20 @@ public class GameThread extends Thread {
     
 
     public GameThread() {
-        this.mino = new Mino();
-        this.ga = new GameArea();
+        this.mino     = new Mino();
+        this.ga       = new GameArea();
         this.nextMino = new Mino();
     }
 
     public GameThread(Mino mino, GameArea ga, Mino nextMino) {
-        this.mino = mino;
-        this.ga = ga;
+        this.mino     = mino;
+        this.ga       = ga;
         this.nextMino = nextMino;
     }
 
     public GameThread(Mino mino, GameArea ga) {
-        this.mino = mino;
-        this.ga = ga;
+        this.mino     = mino;
+        this.ga       = ga;
         this.nextMino = new Mino();
     }
 
@@ -34,11 +34,15 @@ public class GameThread extends Thread {
 
     public void run() {
 
-        while (true) {
+        while (true) { // ゲーム処理本体
+
             ga.moveDown(mino);
 
+            // update mino, nextMino and bufferField
             if (ga.isCollison(mino)) {
-                if(mino.getMinoY() <= 1){ 
+                // ゲームオーバー判定
+                // ToDo
+                if(mino.getMinoY() <= 1){
                     System.out.println("GameOver");
                     System.out.println(ga.getName() + "  あなたのスコア:" + ga.getScore());
                     System.exit(0);
@@ -49,9 +53,10 @@ public class GameThread extends Thread {
                 // ga.addScore();
                 // ga.resetCount();
                 ga.initField();
-                mino.initMino(); 
-                this.mino = nextMino; 
-                this.nextMino = new Mino(); 
+                mino.initMino();
+
+                this.mino     = nextMino;   // 現在のminoをnextMinoに更新する
+                this.nextMino = new Mino(); // nextMinoを更新する
                 //nextMino.initMino(); 
             } else {
                 ga.eraseLine();
@@ -60,6 +65,8 @@ public class GameThread extends Thread {
                 ga.initField();
                 ga.fieldAddMino(mino);
             }
+            
+            // draw display
             ga.drawField();
             System.out.println("NextMino"); 
             ga.drawNextMino(nextMino); 

@@ -5,16 +5,19 @@ public class GameArea { //15結合済み
     private int fieldWidth = 12;
     private int grandHight = 30; // 広めに確保
     private int grandWidth = 20; // 広めに確保
-    private int[][] field;
-    private int[][] bufferField;
-    private int score = 0; 
-    private int linecount = 0; 
+    private int[][] field;       // 描画用フィールド
+    private int[][] bufferField; // 書き込み用フィールド
+
+    // parameter for display
+    private int score     = 0;
+    private int linecount = 0;
+
     // private Mino mino;
     private String name;
 
     public GameArea() {
         // this.mino = mino;
-        this.field = new int[grandHight][grandWidth];
+        this.field       = new int[grandHight][grandWidth];
         this.bufferField = new int[grandHight][grandWidth];
         initBufferField();
         initField();
@@ -56,12 +59,16 @@ public class GameArea { //15結合済み
     public int[][] getField() {
         return this.field;
     }
+
+    // ?
     public GameArea(String name){
         this.name = name;
     }
+
     public String getName(){
         return this.name;
     }
+
     public void setName(String name){
         this.name = name;
     }
@@ -100,16 +107,16 @@ public class GameArea { //15結合済み
             }
             System.out.println();
         }
+        
         System.out.println("消したライン数：" + linecount); 
         System.out.print("名前:" + name +"   ");
-        System.out.println("スコア：" + score); 
-
+        System.out.println("スコア：" + score);
     }
 
     //fieldの下にnextMinoを出力
-   public void drawNextMino(Mino nextMino) {
+    public void drawNextMino(Mino nextMino) {
 
-    int[][][] m = nextMino.getMino();
+        int[][][] m = nextMino.getMino();
 
         for (int y = 0; y < 4; y++) {
             for (int x = 0; x < 4; x++) {
@@ -117,7 +124,6 @@ public class GameArea { //15結合済み
             }
             System.out.println();
         }
-        
     }
 
 
