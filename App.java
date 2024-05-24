@@ -8,6 +8,7 @@ import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
 import java.util.Scanner;
 
+
 public class App extends JFrame {
     // オブジェクトをAppクラスで利用できるようにフィールド（メンバ変数）を準備
     GameArea ga;
@@ -27,6 +28,7 @@ public class App extends JFrame {
         initControls();
     }
 
+    
     // mainメソッド 1番最初に動く特別なメソッド
     public static void main(String[] args) throws Exception {
         // Start Screen
