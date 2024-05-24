@@ -14,12 +14,17 @@ public class App extends JFrame {
     GameArea ga;
     Mino mino;
     Mino nextMino;
+    boolean flag_W=false,flag_A=false,flag_S=false,flag_D=false;
+    InputMap  im = this.getRootPane().getInputMap();
+    ActionMap am = this.getRootPane().getActionMap();
     
-    public App() {
+    public App(String name) {
         // オブジェクトをインスタンス化してAppクラスフィールド（メンバ変数）へ追加
         this.mino     = new Mino();
         this.ga       = new GameArea();
         this.nextMino = new Mino();
+
+        ga.setName(name);
 
         // スレッド呼び出し
         new GameThread(mino, ga).start();
@@ -28,7 +33,7 @@ public class App extends JFrame {
         initControls();
     }
 
-    
+
     // mainメソッド 1番最初に動く特別なメソッド
     public static void main(String[] args) throws Exception {
         // Start Screen
@@ -59,7 +64,7 @@ public class App extends JFrame {
         // ?
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new App().setVisible(true);
+                new App(name).setVisible(true);
             }
         });
         
@@ -89,8 +94,6 @@ public class App extends JFrame {
 
 
     private void initControls() {
-        InputMap  im = this.getRootPane().getInputMap();
-        ActionMap am = this.getRootPane().getActionMap();
 
         im.put(KeyStroke.getKeyStroke("RIGHT"), "right");
         am.put("right", new AbstractAction() {
@@ -134,4 +137,5 @@ public class App extends JFrame {
             }
         });
     }
+
 }
