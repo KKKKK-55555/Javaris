@@ -15,11 +15,13 @@ public class App extends JFrame {
     Mino mino;
     Mino nextMino;
     
-    public App() {
+    public App(String name) {
         // オブジェクトをインスタンス化してAppクラスフィールド（メンバ変数）へ追加
         this.mino     = new Mino();
         this.ga       = new GameArea();
         this.nextMino = new Mino();
+
+        ga.setName(name);
 
         // スレッド呼び出し
         new GameThread(mino, ga).start();
@@ -28,7 +30,7 @@ public class App extends JFrame {
         initControls();
     }
 
-    
+
     // mainメソッド 1番最初に動く特別なメソッド
     public static void main(String[] args) throws Exception {
         // Start Screen
@@ -59,7 +61,7 @@ public class App extends JFrame {
         // ?
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new App().setVisible(true);
+                new App(name).setVisible(true);
             }
         });
         
