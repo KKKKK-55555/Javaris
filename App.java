@@ -14,6 +14,9 @@ public class App extends JFrame {
     GameArea ga;
     Mino mino;
     Mino nextMino;
+    boolean flag_W=false,flag_A=false,flag_S=false,flag_D=false;
+    InputMap  im = this.getRootPane().getInputMap();
+    ActionMap am = this.getRootPane().getActionMap();
     
     public App(String name) {
         // オブジェクトをインスタンス化してAppクラスフィールド（メンバ変数）へ追加
@@ -91,8 +94,6 @@ public class App extends JFrame {
 
 
     private void initControls() {
-        InputMap  im = this.getRootPane().getInputMap();
-        ActionMap am = this.getRootPane().getActionMap();
 
         im.put(KeyStroke.getKeyStroke("RIGHT"), "right");
         am.put("right", new AbstractAction() {
@@ -136,4 +137,5 @@ public class App extends JFrame {
             }
         });
     }
+
 }
