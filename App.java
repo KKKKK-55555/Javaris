@@ -8,6 +8,7 @@ import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
 import java.util.Scanner;
 
+
 public class App extends JFrame {
     // オブジェクトをAppクラスで利用できるようにフィールド（メンバ変数）を準備
     GameArea   ga;
