@@ -6,8 +6,8 @@ import java.util.logging.Logger;
 public class GameThread extends Thread {
 
     private GameArea ga;
-    private Mino mino;
-    private Mino nextMino;
+    private Mino     mino;
+    private Mino     nextMino;
     
 
     public GameThread() {
@@ -28,10 +28,15 @@ public class GameThread extends Thread {
         this.nextMino = new Mino();
     }
 
+    public Mino getMinoNow() {
+        return this.mino;
+    }
+
     //public void nextMino(Mino nextMino){ 
       //  this.mino = nextMino;
     //}
 
+    @Override
     public void run() {
 
         while (true) { // ゲーム処理本体
