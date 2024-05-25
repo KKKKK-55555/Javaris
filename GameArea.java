@@ -86,14 +86,17 @@ public class GameArea { //15結合済み
 
     // 壁用BufferField初期化
     public void initBufferField() {
+        // 0を敷き詰める
         for (int y = 0; y < getFieldHight(); y++) {
             for (int x = 0; x < getFieldWidth(); x++) {
                 bufferField[y][x] = 0;
             }
         }
+        // 壁を作る
         for (int y = 0; y < getFieldHight(); y++) {
             bufferField[y][0] = bufferField[y][getFieldWidth() - 1] = 1;
         }
+        // 床を作る
         for (int x = 0; x < getFieldWidth(); x++) {
             bufferField[getFieldHight() - 1][x] = 1;
         }
@@ -180,8 +183,8 @@ public class GameArea { //15結合済み
 
     // 当たり判定 コントローラー用
     public boolean isCollison(Mino mino, int _x, int _y, int _angle) {
-        for (int r = 0; r < mino.getMinoSize(); r++) {
-            for (int c = 0; c < mino.getMinoSize(); c++) {
+        for (int r = 0; r < mino.getMinoSize(); r++) {     // r means ROW
+            for (int c = 0; c < mino.getMinoSize(); c++) { // c means COLUMN
                 if (getBufferField()[_y + r][_x + c] == 1
                     && mino.getMino()[_angle][r][c] == 1) {
                     return true;
