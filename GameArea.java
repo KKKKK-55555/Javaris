@@ -3,8 +3,8 @@ package Javaris;
 public class GameArea { //15結合済み
     private int fieldHight = 21; // ミノ操作可能なフィールドの高さ
     private int fieldWidth = 12; // ミノ操作可能なフィールドの幅
-    private int grandHight = 30; // 描画用前フィールドの高さ 広めに確保
-    private int grandWidth = 20; // 描画用前フィールドの高さ 広めに確保
+    private int grandHight = 30; // 書き込み用フィールドの高さ 広めに確保
+    private int grandWidth = 20; // 書き込み用フィールドの高さ 広めに確保
     private int[][] field;       // 描画用フィールド
     private int[][] bufferField; // 書き込み用フィールド
 
