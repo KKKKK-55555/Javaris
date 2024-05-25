@@ -15,6 +15,11 @@ public class GameArea { //15結合済み
     // private Mino mino;
     private String name;
 
+    // field offsets
+    private int heightOverOffset  = 5;
+    private int heightUnderOffset = 4;
+    private int widthOffset       = 4;
+
     public GameArea() {
         // this.mino = mino;
         this.field       = new int[grandHeight][grandWidth];
