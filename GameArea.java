@@ -84,7 +84,7 @@ public class GameArea { //15結合済み
         }
     }
 
-    // 壁用BufferField初期化
+    // 固定用BufferField初期化
     public void initBufferField() {
         // 0を敷き詰める
         for (int y = 0; y < getFieldHight(); y++) {
