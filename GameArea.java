@@ -1,7 +1,7 @@
 package Javaris;
 
 public class GameArea { //15結合済み
-    private int fieldHight = 21; // ミノ操作可能なフィールドの高さ
+    private int fieldHeight = 21; // ミノ操作可能なフィールドの高さ
     private int fieldWidth = 12; // ミノ操作可能なフィールドの幅
     private int grandHight = 30; // 書き込み用フィールドの高さ 広めに確保
     private int grandWidth = 20; // 書き込み用フィールドの高さ 広めに確保
@@ -36,8 +36,8 @@ public class GameArea { //15結合済み
         return this.linecount;
     }
 
-    public int getFieldHight() {
-        return this.fieldHight;
+    public int getfieldHeight() {
+        return this.fieldHeight;
     }
 
     public int getFieldWidth() {
@@ -77,7 +77,7 @@ public class GameArea { //15結合済み
 
     // 描画用Field初期化
     public void initField() {
-        for (int y = 0; y < getFieldHight(); y++) {
+        for (int y = 0; y < getfieldHeight(); y++) {
             for (int x = 0; x < getFieldWidth(); x++) {
                 field[y][x] = bufferField[y][x];
             }
@@ -87,24 +87,24 @@ public class GameArea { //15結合済み
     // 固定用BufferField初期化
     public void initBufferField() {
         // 0を敷き詰める
-        for (int y = 0; y < getFieldHight(); y++) {
+        for (int y = 0; y < getfieldHeight(); y++) {
             for (int x = 0; x < getFieldWidth(); x++) {
                 bufferField[y][x] = 0;
             }
         }
         // 壁を作る
-        for (int y = 0; y < getFieldHight(); y++) {
+        for (int y = 0; y < getfieldHeight(); y++) {
             bufferField[y][0] = bufferField[y][getFieldWidth() - 1] = 1;
         }
         // 床を作る
         for (int x = 0; x < getFieldWidth(); x++) {
-            bufferField[getFieldHight() - 1][x] = 1;
+            bufferField[getfieldHeight() - 1][x] = 1;
         }
     }
 
-    // スレッドに描画
+    // 描画メソッド
     public void drawField() {
-        for (int y = 0; y < getFieldHight(); y++) {
+        for (int y = 0; y < getfieldHeight(); y++) {
             for (int x = 0; x < getFieldWidth(); x++) {
                 System.out.printf("%s", (field[y][x] == 1 ? "回" : "・"));
             }
@@ -199,7 +199,7 @@ public class GameArea { //15結合済み
         boolean isFill = true;
         resetCount();
 
-        for (int y = getFieldHight() - 2; y > 0; y--) {
+        for (int y = getfieldHeight() - 2; y > 0; y--) {
             for (int x = 1; x < getFieldWidth() - 1; x++) {
                 if (bufferField[y][x] == 0) {
                     isFill = false;
