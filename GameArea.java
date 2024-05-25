@@ -2,9 +2,9 @@ package Javaris;
 
 public class GameArea { //15結合済み
     private int fieldHeight = 21; // ミノ操作可能なフィールドの高さ
-    private int fieldWidth = 12; // ミノ操作可能なフィールドの幅
-    private int grandHight = 30; // 書き込み用フィールドの高さ 広めに確保
-    private int grandWidth = 20; // 書き込み用フィールドの高さ 広めに確保
+    private int fieldWidth  = 12; // ミノ操作可能なフィールドの幅
+    private int grandHeight = 30; // 書き込み用フィールドの高さ 広めに確保
+    private int grandWidth  = 20; // 書き込み用フィールドの高さ 広めに確保
     private int[][] field;       // 描画用フィールド
     private int[][] bufferField; // 書き込み用フィールド
 
@@ -17,8 +17,8 @@ public class GameArea { //15結合済み
 
     public GameArea() {
         // this.mino = mino;
-        this.field       = new int[grandHight][grandWidth];
-        this.bufferField = new int[grandHight][grandWidth];
+        this.field       = new int[grandHeight][grandWidth];
+        this.bufferField = new int[grandHeight][grandWidth];
         initBufferField();
         initField();
     }
@@ -44,8 +44,8 @@ public class GameArea { //15結合済み
         return this.fieldWidth;
     }
 
-    public int getGrandHight() {
-        return this.grandHight;
+    public int getgrandHeight() {
+        return this.grandHeight;
     }
 
     public int getGrandWidth() {
