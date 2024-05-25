@@ -10,6 +10,7 @@ import java.util.Scanner;
 
 
 public class App extends JFrame {
+
     // オブジェクトをAppクラスで利用できるようにフィールド（メンバ変数）を準備
     GameArea   ga;
     Mino       mino;
@@ -96,47 +97,80 @@ public class App extends JFrame {
 
     private void initControls() {
 
+        // Initialize maps
         InputMap  im = this.getRootPane().getInputMap();
         ActionMap am = this.getRootPane().getActionMap();
 
-        im.put(KeyStroke.getKeyStroke("RIGHT"), "right");
+        // RIGHT Key Control
+        im.put(KeyStroke.getKeyStroke("RIGHT"),
+               "right");
+        
         am.put("right", new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
-                if (ga.isCollison(gt.getMinoNow(), gt.getMinoNow().getMinoX() + 1, gt.getMinoNow().getMinoY(), gt.getMinoNow().getMinoAngle()) == false) {
+                if (ga.isCollison(
+                    gt.getMinoNow(),                // mino
+                    gt.getMinoNow().getMinoX() + 1, // minoX where the mino moves right
+                    gt.getMinoNow().getMinoY(),     // minoY
+                    gt.getMinoNow().getMinoAngle()  // minoAngle
+                    ) == false
+                ) {
                     ga.moveRight(gt.getMinoNow());
                     //ga.drawFieldAndMino(gt.getMinoNow(), gt.getMinoNow());
                 }
             }
         });
 
-        im.put(KeyStroke.getKeyStroke("LEFT"), "left");
+        // LEFT Key Control
+        im.put(KeyStroke.getKeyStroke("LEFT"),
+               "left");
+        
         am.put("left", new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
-                if (!ga.isCollison(gt.getMinoNow(), gt.getMinoNow().getMinoX() - 1, gt.getMinoNow().getMinoY(), gt.getMinoNow().getMinoAngle())) {
+                if (!ga.isCollison(
+                    gt.getMinoNow(),
+                    gt.getMinoNow().getMinoX() - 1,
+                    gt.getMinoNow().getMinoY(),
+                    gt.getMinoNow().getMinoAngle()
+                    )
+                ) {
                     ga.moveLeft(gt.getMinoNow());
                     //ga.drawFieldAndMino(gt.getMinoNow(), gt.getMinoNow());
                 }
             }
         });
 
-        im.put(KeyStroke.getKeyStroke("DOWN"), "down");
+        // DOWN Key Control
+
+        im.put(KeyStroke.getKeyStroke("DOWN"),
+               "down");
+        
         am.put("down", new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
-                if (!ga.isCollison(gt.getMinoNow(), gt.getMinoNow().getMinoX(), gt.getMinoNow().getMinoY() + 1, gt.getMinoNow().getMinoAngle())) {
+                if (!ga.isCollison(gt.getMinoNow(),
+                    gt.getMinoNow().getMinoX(),
+                    gt.getMinoNow().getMinoY() + 1,
+                    gt.getMinoNow().getMinoAngle()
+                    )
+                ) {
                     ga.moveDown(gt.getMinoNow());
                     //ga.drawFieldAndMino(gt.getMinoNow(), gt.getMinoNow());
                 }
             }
         });
 
-        im.put(KeyStroke.getKeyStroke("UP"), "up");
+        // Rotaion Key Control
+        im.put(KeyStroke.getKeyStroke("UP"),
+               "up");
         am.put("up", new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
-                if (!ga.isCollison(gt.getMinoNow(), gt.getMinoNow().getMinoX() + 1, gt.getMinoNow().getMinoY(),
-                        (gt.getMinoNow().getMinoAngle() + 1) % gt.getMinoNow().getMinoAngleSize())) {
+                if (!ga.isCollison(gt.getMinoNow(),
+                    gt.getMinoNow().getMinoX() + 1,
+                    gt.getMinoNow().getMinoY(),
+                    (gt.getMinoNow().getMinoAngle() + 1) % gt.getMinoNow().getMinoAngleSize()
+                    )
+                ) {
                     ga.rotation(gt.getMinoNow());
                     //ga.drawFieldAndMino(gt.getMinoNow(), gt.getMinoNow());
-
                 }
             }
         });
