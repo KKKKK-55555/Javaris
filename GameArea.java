@@ -19,6 +19,8 @@ public class GameArea { //15結合済み
     private int heightOverOffset  = 5;
     private int heightUnderOffset = 4;
     private int widthOffset       = 4;
+    private int fieldStartX       = widthOffset;
+    private int fieldStartY       = heightOverOffset;
 
     public GameArea() {
         // this.mino = mino;
@@ -99,8 +101,8 @@ public class GameArea { //15結合済み
         }
 
         // フィールドに0を敷き詰める
-        for (int y = this.heightOverOffset; y < getGrandHeight()-this.heightUnderOffset; y++) {
-            for (int x = this.widthOffset+1; x < getGrandWidth()-this.widthOffset+1; x++) {
+        for (int y = heightOverOffset; y < getGrandHeight()-heightUnderOffset-1; y++) {
+            for (int x = widthOffset+1; x < getGrandWidth()-widthOffset-1; x++) {
                 bufferField[y][x] = 0;
             }
         }
@@ -118,8 +120,8 @@ public class GameArea { //15結合済み
 
     // 描画メソッド
     public void drawField() {
-        for (int y = 0; y < getFieldHeight(); y++) {
-            for (int x = 0; x < getFieldWidth(); x++) {
+        for (int y = heightOverOffset; y < getGrandHeight()-heightUnderOffset; y++) {
+            for (int x = widthOffset; x < getGrandWidth()-widthOffset; x++) {
                 System.out.printf("%s", (field[y][x] == 1 ? "回" : "・"));
             }
             System.out.println();
@@ -168,7 +170,7 @@ public class GameArea { //15結合済み
     public void fieldAddMino(Mino mino) {
         for (int y = 0; y < mino.getMinoSize(); y++) {
             for (int x = 0; x < mino.getMinoSize(); x++) {
-                this.field[mino.getMinoY() + y][mino.getMinoX() + x] |= mino.getMino()[mino.getMinoAngle()][y][x];
+                this.field[heightOverOffset + mino.getMinoY() + y][widthOffset + mino.getMinoX() + x] |= mino.getMino()[mino.getMinoAngle()][y][x];
             }
         }
     }
@@ -176,7 +178,8 @@ public class GameArea { //15結合済み
     public void bufferFieldAddMino(Mino mino) {
         for (int y = 0; y < mino.getMinoSize(); y++) {
             for (int x = 0; x < mino.getMinoSize(); x++) {
-                this.bufferField[mino.getMinoY() + y][mino.getMinoX() + x] |= mino.getMino()[mino.getMinoAngle()][y][x];
+                this.bufferField[heightOverOffset + mino.getMinoY() + y][widthOffset + mino.getMinoX() + x]
+                    |= mino.getMino()[mino.getMinoAngle()][y][x];
             }
         }
     }
@@ -186,7 +189,7 @@ public class GameArea { //15結合済み
         for (int r = 0; r < mino.getMinoSize(); r++) {
             for (int c = 0; c < mino.getMinoSize(); c++) {
                 // 1カラム下の行を確認して1があるか確認
-                if (this.bufferField[mino.getMinoY() + r + 1][mino.getMinoX() + c] == 1
+                if (this.bufferField[heightOverOffset + mino.getMinoY() + r + 1][widthOffset + mino.getMinoX() + c] == 1
                     && mino.getMino()[mino.getMinoAngle()][r][c] == 1) {
                     return true;
                 }
@@ -199,7 +202,7 @@ public class GameArea { //15結合済み
     public boolean isCollison(Mino mino, int _x, int _y, int _angle) {
         for (int r = 0; r < mino.getMinoSize(); r++) {     // r means ROW
             for (int c = 0; c < mino.getMinoSize(); c++) { // c means COLUMN
-                if (getBufferField()[_y + r][_x + c] == 1
+                if (getBufferField()[heightOverOffset + _y + r][widthOffset + _x + c] == 1
                     && mino.getMino()[_angle][r][c] == 1) {
                     return true;
                 }
