@@ -49,7 +49,7 @@ public class GameArea { //15結合済み
         return this.fieldWidth;
     }
 
-    public int getgrandHeight() {
+    public int getGrandHeight() {
         return this.grandHeight;
     }
 
@@ -82,8 +82,8 @@ public class GameArea { //15結合済み
 
     // 描画用Field初期化
     public void initField() {
-        for (int y = 0; y < getFieldHeight(); y++) {
-            for (int x = 0; x < getFieldWidth(); x++) {
+        for (int y = 0; y < getGrandHeight(); y++) {
+            for (int x = 0; x < getGrandWidth(); x++) {
                 field[y][x] = bufferField[y][x];
             }
         }
@@ -91,12 +91,20 @@ public class GameArea { //15結合済み
 
     // 固定ブロック用BufferField初期化
     public void initBufferField() {
-        // 0を敷き詰める
-        for (int y = 0; y < getFieldHeight(); y++) {
-            for (int x = 0; x < getFieldWidth(); x++) {
+        // 1を敷き詰める
+        for (int y = 0; y < getGrandHeight(); y++) {
+            for (int x = 0; x < getGrandWidth(); x++) {
+                bufferField[y][x] = 1;
+            }
+        }
+
+        // フィールドに0を敷き詰める
+        for (int y = this.heightOverOffset; y < getGrandHeight()-this.heightUnderOffset; y++) {
+            for (int x = this.widthOffset+1; x < getGrandWidth()-this.widthOffset+1; x++) {
                 bufferField[y][x] = 0;
             }
         }
+        /*
         // 壁を作る
         for (int y = 0; y < getFieldHeight(); y++) {
             bufferField[y][0] = bufferField[y][getFieldWidth() - 1] = 1;
@@ -105,6 +113,7 @@ public class GameArea { //15結合済み
         for (int x = 0; x < getFieldWidth(); x++) {
             bufferField[getFieldHeight() - 1][x] = 1;
         }
+        */
     }
 
     // 描画メソッド
