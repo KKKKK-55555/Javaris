@@ -5,8 +5,8 @@ public class GameArea { //15結合済み
     private int fieldWidth  = 12; // ミノ操作可能なフィールドの幅
     private int grandHeight = 30; // 書き込み用フィールドの高さ 広めに確保
     private int grandWidth  = 20; // 書き込み用フィールドの高さ 広めに確保
-    private int[][] field;       // 描画用フィールド
-    private int[][] bufferField; // 書き込み用フィールド
+    private int[][] field;        // 描画用フィールド
+    private int[][] bufferField;  // 書き込み用フィールド
 
     // parameter for display
     private int score     = 0;
@@ -41,7 +41,7 @@ public class GameArea { //15結合済み
         return this.linecount;
     }
 
-    public int getfieldHeight() {
+    public int getFieldHeight() {
         return this.fieldHeight;
     }
 
@@ -82,34 +82,34 @@ public class GameArea { //15結合済み
 
     // 描画用Field初期化
     public void initField() {
-        for (int y = 0; y < getfieldHeight(); y++) {
+        for (int y = 0; y < getFieldHeight(); y++) {
             for (int x = 0; x < getFieldWidth(); x++) {
                 field[y][x] = bufferField[y][x];
             }
         }
     }
 
-    // 固定用BufferField初期化
+    // 固定ブロック用BufferField初期化
     public void initBufferField() {
         // 0を敷き詰める
-        for (int y = 0; y < getfieldHeight(); y++) {
+        for (int y = 0; y < getFieldHeight(); y++) {
             for (int x = 0; x < getFieldWidth(); x++) {
                 bufferField[y][x] = 0;
             }
         }
         // 壁を作る
-        for (int y = 0; y < getfieldHeight(); y++) {
+        for (int y = 0; y < getFieldHeight(); y++) {
             bufferField[y][0] = bufferField[y][getFieldWidth() - 1] = 1;
         }
         // 床を作る
         for (int x = 0; x < getFieldWidth(); x++) {
-            bufferField[getfieldHeight() - 1][x] = 1;
+            bufferField[getFieldHeight() - 1][x] = 1;
         }
     }
 
     // 描画メソッド
     public void drawField() {
-        for (int y = 0; y < getfieldHeight(); y++) {
+        for (int y = 0; y < getFieldHeight(); y++) {
             for (int x = 0; x < getFieldWidth(); x++) {
                 System.out.printf("%s", (field[y][x] == 1 ? "回" : "・"));
             }
@@ -204,7 +204,7 @@ public class GameArea { //15結合済み
         boolean isFill = true;
         resetCount();
 
-        for (int y = getfieldHeight() - 2; y > 0; y--) {
+        for (int y = getFieldHeight() - 2; y > 0; y--) {
             for (int x = 1; x < getFieldWidth() - 1; x++) {
                 if (bufferField[y][x] == 0) {
                     isFill = false;
