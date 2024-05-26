@@ -115,7 +115,7 @@ public class App extends JFrame {
                     ) == false
                 ) {
                     ga.moveRight(gt.getMinoNow());
-                    //ga.drawFieldAndMino(gt.getMinoNow(), gt.getMinoNow());
+                    ga.drawFieldAndMino(gt.getMinoNow(), gt.getMinoNow());
                 }
             }
         });
@@ -134,7 +134,7 @@ public class App extends JFrame {
                     )
                 ) {
                     ga.moveLeft(gt.getMinoNow());
-                    //ga.drawFieldAndMino(gt.getMinoNow(), gt.getMinoNow());
+                    ga.drawFieldAndMino(gt.getMinoNow(), gt.getMinoNow());
                 }
             }
         });
@@ -153,7 +153,7 @@ public class App extends JFrame {
                     )
                 ) {
                     ga.moveDown(gt.getMinoNow());
-                    //ga.drawFieldAndMino(gt.getMinoNow(), gt.getMinoNow());
+                    ga.drawFieldAndMino(gt.getMinoNow(), gt.getMinoNow());
                 }
             }
         });
@@ -164,13 +164,13 @@ public class App extends JFrame {
         am.put("up", new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
                 if (!ga.isCollison(gt.getMinoNow(),
-                    gt.getMinoNow().getMinoX() + 1,
+                    gt.getMinoNow().getMinoX(),
                     gt.getMinoNow().getMinoY(),
                     (gt.getMinoNow().getMinoAngle() + 1) % gt.getMinoNow().getMinoAngleSize()
                     )
                 ) {
                     ga.rotation(gt.getMinoNow());
-                    //ga.drawFieldAndMino(gt.getMinoNow(), gt.getMinoNow());
+                    ga.drawFieldAndMino(gt.getMinoNow(), gt.getMinoNow());
                 }
             }
         });
