@@ -19,8 +19,8 @@ public class GameArea { //15結合済み
     private int heightOverOffset  = 5;
     private int heightUnderOffset = 4;
     private int widthOffset       = 4;
-    private int fieldStartX       = widthOffset;
-    private int fieldStartY       = heightOverOffset;
+    //private int fieldStartX       = widthOffset;
+    //private int fieldStartY       = heightOverOffset;
 
     public GameArea() {
         // this.mino = mino;
