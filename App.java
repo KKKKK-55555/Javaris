@@ -164,7 +164,7 @@ public class App extends JFrame {
         am.put("up", new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
                 if (!ga.isCollison(gt.getMinoNow(),
-                    gt.getMinoNow().getMinoX() + 1,
+                    gt.getMinoNow().getMinoX(),
                     gt.getMinoNow().getMinoY(),
                     (gt.getMinoNow().getMinoAngle() + 1) % gt.getMinoNow().getMinoAngleSize()
                     )
