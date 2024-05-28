@@ -101,7 +101,7 @@ public class GameArea { //15結合済み
         }
 
         // フィールドに0を敷き詰める
-        for (int y = heightOverOffset; y < getGrandHeight()-heightUnderOffset-1; y++) {
+        for (int y = 0; y < getFieldHeight()+ heightOverOffset - 1; y++) {
             for (int x = widthOffset+1; x < getGrandWidth()-widthOffset-1; x++) {
                 bufferField[y][x] = 0;
             }
@@ -216,15 +216,15 @@ public class GameArea { //15結合済み
         boolean isFill = true;
         resetCount();
 
-        for (int y = getFieldHeight() - 2; y > 0; y--) {
-            for (int x = 1; x < getFieldWidth() - 1; x++) {
+        for (int y = getFieldHeight() + 3; y > 0; y--) {
+            for (int x = 5; x < getFieldWidth() +3 ; x++) {
                 if (bufferField[y][x] == 0) {
                     isFill = false;
                 }
             }
             if (isFill) {
                 for (int _y = y - 1; _y > 0; _y--) {
-                    for (int x = 0; x < getFieldWidth(); x++) {
+                    for (int x = 4; x < getFieldWidth()+4; x++) {
                         bufferField[_y + 1][x] = bufferField[_y][x];
                     } // for end
                 }
