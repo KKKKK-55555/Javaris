@@ -32,6 +32,10 @@ public class GameThread extends Thread {
         return this.mino;
     }
 
+    public Mino getNextMino() {
+        return this.nextMino;
+    }
+
     //public void nextMino(Mino nextMino){ 
       //  this.mino = nextMino;
     //}
