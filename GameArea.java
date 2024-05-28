@@ -11,6 +11,7 @@ public class GameArea { //15結合済み
     // parameter for display
     private int score     = 0;
     private int linecount = 0;
+    private int linetotal = 0;
 
     // private Mino mino;
     private String name;
@@ -127,7 +128,7 @@ public class GameArea { //15結合済み
             System.out.println();
         }
         
-        System.out.println("消したライン数：" + linecount); 
+        System.out.println("消したライン数：" + linetotal); 
         System.out.print("名前:" + name +"   ");
         System.out.println("スコア：" + score);
     }
@@ -229,6 +230,7 @@ public class GameArea { //15結合済み
                     } // for end
                 }
                 this.linecount++; 
+                this.linetotal++;
 
             } // if end
             isFill = true;
