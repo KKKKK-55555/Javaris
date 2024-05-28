@@ -1,12 +1,12 @@
 package Javaris;
 
 public class GameArea { //15結合済み
-    private int fieldHight = 21;
-    private int fieldWidth = 12;
-    private int grandHight = 30; // 広めに確保
-    private int grandWidth = 20; // 広めに確保
-    private int[][] field;       // 描画用フィールド
-    private int[][] bufferField; // 書き込み用フィールド
+    private int fieldHeight = 21; // ミノ操作可能なフィールドの高さ
+    private int fieldWidth  = 12; // ミノ操作可能なフィールドの幅
+    private int grandHeight = 30; // 書き込み用フィールドの高さ 広めに確保
+    private int grandWidth  = 20; // 書き込み用フィールドの高さ 広めに確保
+    private int[][] field;        // 描画用フィールド
+    private int[][] bufferField;  // 書き込み用フィールド
 
     // parameter for display
     private int score     = 0;
@@ -15,10 +15,17 @@ public class GameArea { //15結合済み
     // private Mino mino;
     private String name;
 
+    // field offsets
+    private int heightOverOffset  = 5;
+    private int heightUnderOffset = 4;
+    private int widthOffset       = 4;
+    //private int fieldStartX       = widthOffset;
+    //private int fieldStartY       = heightOverOffset;
+
     public GameArea() {
         // this.mino = mino;
-        this.field       = new int[grandHight][grandWidth];
-        this.bufferField = new int[grandHight][grandWidth];
+        this.field       = new int[grandHeight][grandWidth];
+        this.bufferField = new int[grandHeight][grandWidth];
         initBufferField();
         initField();
     }
@@ -36,16 +43,16 @@ public class GameArea { //15結合済み
         return this.linecount;
     }
 
-    public int getFieldHight() {
-        return this.fieldHight;
+    public int getFieldHeight() {
+        return this.fieldHeight;
     }
 
     public int getFieldWidth() {
         return this.fieldWidth;
     }
 
-    public int getGrandHight() {
-        return this.grandHight;
+    public int getGrandHeight() {
+        return this.grandHeight;
     }
 
     public int getGrandWidth() {
@@ -77,35 +84,44 @@ public class GameArea { //15結合済み
 
     // 描画用Field初期化
     public void initField() {
-        for (int y = 0; y < getFieldHight(); y++) {
-            for (int x = 0; x < getFieldWidth(); x++) {
+        for (int y = 0; y < getGrandHeight(); y++) {
+            for (int x = 0; x < getGrandWidth(); x++) {
                 field[y][x] = bufferField[y][x];
             }
         }
     }
 
-    // 壁用BufferField初期化
+    // 固定ブロック用BufferField初期化
     public void initBufferField() {
-        // 0を敷き詰める
-        for (int y = 0; y < getFieldHight(); y++) {
-            for (int x = 0; x < getFieldWidth(); x++) {
+        // 1を敷き詰める
+        for (int y = 0; y < getGrandHeight(); y++) {
+            for (int x = 0; x < getGrandWidth(); x++) {
+                bufferField[y][x] = 1;
+            }
+        }
+
+        // フィールドに0を敷き詰める
+        for (int y = heightOverOffset; y < getGrandHeight()-heightUnderOffset-1; y++) {
+            for (int x = widthOffset+1; x < getGrandWidth()-widthOffset-1; x++) {
                 bufferField[y][x] = 0;
             }
         }
+        /*
         // 壁を作る
-        for (int y = 0; y < getFieldHight(); y++) {
+        for (int y = 0; y < getFieldHeight(); y++) {
             bufferField[y][0] = bufferField[y][getFieldWidth() - 1] = 1;
         }
         // 床を作る
         for (int x = 0; x < getFieldWidth(); x++) {
-            bufferField[getFieldHight() - 1][x] = 1;
+            bufferField[getFieldHeight() - 1][x] = 1;
         }
+        */
     }
 
-    // スレッドに描画
+    // 描画メソッド
     public void drawField() {
-        for (int y = 0; y < getFieldHight(); y++) {
-            for (int x = 0; x < getFieldWidth(); x++) {
+        for (int y = heightOverOffset; y < getGrandHeight()-heightUnderOffset; y++) {
+            for (int x = widthOffset; x < getGrandWidth()-widthOffset; x++) {
                 System.out.printf("%s", (field[y][x] == 1 ? "回" : "・"));
             }
             System.out.println();
@@ -154,7 +170,7 @@ public class GameArea { //15結合済み
     public void fieldAddMino(Mino mino) {
         for (int y = 0; y < mino.getMinoSize(); y++) {
             for (int x = 0; x < mino.getMinoSize(); x++) {
-                this.field[mino.getMinoY() + y][mino.getMinoX() + x] |= mino.getMino()[mino.getMinoAngle()][y][x];
+                this.field[heightOverOffset + mino.getMinoY() + y][widthOffset + mino.getMinoX() + x] |= mino.getMino()[mino.getMinoAngle()][y][x];
             }
         }
     }
@@ -162,7 +178,8 @@ public class GameArea { //15結合済み
     public void bufferFieldAddMino(Mino mino) {
         for (int y = 0; y < mino.getMinoSize(); y++) {
             for (int x = 0; x < mino.getMinoSize(); x++) {
-                this.bufferField[mino.getMinoY() + y][mino.getMinoX() + x] |= mino.getMino()[mino.getMinoAngle()][y][x];
+                this.bufferField[heightOverOffset + mino.getMinoY() + y][widthOffset + mino.getMinoX() + x]
+                    |= mino.getMino()[mino.getMinoAngle()][y][x];
             }
         }
     }
@@ -172,7 +189,7 @@ public class GameArea { //15結合済み
         for (int r = 0; r < mino.getMinoSize(); r++) {
             for (int c = 0; c < mino.getMinoSize(); c++) {
                 // 1カラム下の行を確認して1があるか確認
-                if (this.bufferField[mino.getMinoY() + r + 1][mino.getMinoX() + c] == 1
+                if (this.bufferField[heightOverOffset + mino.getMinoY() + r + 1][widthOffset + mino.getMinoX() + c] == 1
                     && mino.getMino()[mino.getMinoAngle()][r][c] == 1) {
                     return true;
                 }
@@ -185,7 +202,7 @@ public class GameArea { //15結合済み
     public boolean isCollison(Mino mino, int _x, int _y, int _angle) {
         for (int r = 0; r < mino.getMinoSize(); r++) {     // r means ROW
             for (int c = 0; c < mino.getMinoSize(); c++) { // c means COLUMN
-                if (getBufferField()[_y + r][_x + c] == 1
+                if (getBufferField()[heightOverOffset + _y + r][widthOffset + _x + c] == 1
                     && mino.getMino()[_angle][r][c] == 1) {
                     return true;
                 }
@@ -199,7 +216,7 @@ public class GameArea { //15結合済み
         boolean isFill = true;
         resetCount();
 
-        for (int y = getFieldHight() - 2; y > 0; y--) {
+        for (int y = getFieldHeight() - 2; y > 0; y--) {
             for (int x = 1; x < getFieldWidth() - 1; x++) {
                 if (bufferField[y][x] == 0) {
                     isFill = false;
