@@ -28,6 +28,8 @@ public class GameThread extends Thread {
         this.mino     = mino;
         this.ga       = ga;
         this.nextMino = new Mino();
+        this.holdMino = new Mino();
+        this.holdMino.setinitMino();
     }
 
     public Mino getMinoNow() {
@@ -102,8 +104,8 @@ public class GameThread extends Thread {
             
             // draw display
             ga.drawField();
-            System.out.println("NextMino"); 
-            ga.drawNextMino(nextMino); 
+            System.out.println("NextMino  HoldMino"); 
+            ga.drawNextMino(nextMino, holdMino); 
             // ga.drawFieldAndMino(mino);
             
             try {
