@@ -182,6 +182,18 @@ public class App extends JFrame {
                 gt.updateNextMino();
             }
         });
+        // hold
+        im.put(KeyStroke.getKeyStroke("H"),
+               "h");
+        am.put("h", new AbstractAction() {
+            public void actionPerformed(ActionEvent e) {
+                if(gt.isHold()){
+                    gt.changeHoldMino();
+                } else {
+                    gt.initHoldMino();
+                }
+            }
+        });
     }
 
 }
