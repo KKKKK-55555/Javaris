@@ -337,7 +337,6 @@ public class GameArea { //15結合済み
                 }
             }
             if (isOccupied) {
-                System.out.println(hardBlockCount);
                 break;
             } else {
                 hardBlockCount++;
