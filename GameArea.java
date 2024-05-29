@@ -97,7 +97,7 @@ public class GameArea { //15結合済み
         // 1を敷き詰める
         for (int y = 0; y < getGrandHeight(); y++) {
             for (int x = 0; x < getGrandWidth(); x++) {
-                bufferField[y][x] = 1;
+                bufferField[y][x] = 2;
             }
         }
 
@@ -121,17 +121,42 @@ public class GameArea { //15結合済み
 
     // 描画メソッド
     public void drawField() {
-        for (int y = heightOverOffset; y < getGrandHeight()-heightUnderOffset; y++) {
+         for (int y = heightOverOffset; y < getGrandHeight()-heightUnderOffset; y++) {
             for (int x = widthOffset; x < getGrandWidth()-widthOffset; x++) {
-                System.out.printf("%s", (field[y][x] == 1 ? "回" : "・"));
+                switch (field[y][x]) {
+                    case 0:
+                    System.out.printf("%s", "・");
+                        break;
+
+                    case 1:
+                    System.out.printf("%s", "回");
+                        break;
+                    
+                    case 2:
+                    System.out.printf("%s", "口");
+                        break;
+                
+                    default:
+                        break;
+                }
+         //       System.out.printf("%s", (field[y][x] == 1 ? "口" : "・"));
             }
-            System.out.println();
+        
+        
+            //ミノだけ回にしたい
+        // for ( int z = getFieldHeight() + 3; z > 0; z--) {
+         //   for (int x = 5; x < getFieldWidth() +3 ; x++){
+         //       System.out.printf("%s", (field[z][x] == 1 ? "回" : "・"));
+            //    }
+         System.out.println();
+            
         }
         
         System.out.println("消したライン数：" + linetotal); 
         System.out.print("名前:" + name +"   ");
         System.out.println("スコア：" + score);
     }
+    
 
     //fieldの下にnextMinoを出力
     public void drawNextMino(Mino nextMino) {
@@ -190,8 +215,8 @@ public class GameArea { //15結合済み
         for (int r = 0; r < mino.getMinoSize(); r++) {
             for (int c = 0; c < mino.getMinoSize(); c++) {
                 // 1カラム下の行を確認して1があるか確認
-                if (this.bufferField[heightOverOffset + mino.getMinoY() + r + 1][widthOffset + mino.getMinoX() + c] == 1
-                    && mino.getMino()[mino.getMinoAngle()][r][c] == 1) {
+                if (this.bufferField[heightOverOffset + mino.getMinoY() + r + 1][widthOffset + mino.getMinoX() + c] >= 1
+                    && mino.getMino()[mino.getMinoAngle()][r][c] >= 1  ) {
                     return true;
                 }
             }
@@ -203,8 +228,8 @@ public class GameArea { //15結合済み
     public boolean isCollison(Mino mino, int _x, int _y, int _angle) {
         for (int r = 0; r < mino.getMinoSize(); r++) {     // r means ROW
             for (int c = 0; c < mino.getMinoSize(); c++) { // c means COLUMN
-                if (getBufferField()[heightOverOffset + _y + r][widthOffset + _x + c] == 1
-                    && mino.getMino()[_angle][r][c] == 1) {
+                if (getBufferField()[heightOverOffset + _y + r][widthOffset + _x + c] >= 1
+                    && mino.getMino()[_angle][r][c] >= 1) {
                     return true;
                 }
             }
@@ -217,13 +242,15 @@ public class GameArea { //15結合済み
         boolean isFill = true;
         resetCount();
 
-        for (int y = getFieldHeight() + 3; y > 0; y--) {
+        for ( int y = getFieldHeight() + 3; y > 0; y--) {
             for (int x = 5; x < getFieldWidth() +3 ; x++) {
                 if (bufferField[y][x] == 0) {
                     isFill = false;
                 }
             }
-            if (isFill) {
+            
+
+        if (isFill) {
                 for (int _y = y - 1; _y > 0; _y--) {
                     for (int x = 4; x < getFieldWidth()+4; x++) {
                         bufferField[_y + 1][x] = bufferField[_y][x];
@@ -231,16 +258,44 @@ public class GameArea { //15結合済み
                 }
                 this.linecount++; 
                 this.linetotal++;
+                y ++; 
 
             } // if end
             isFill = true;
             // addScore(); //1行ごとに処理された
             // resetCount(); // 0のまま更新されない
-        } // for end
-        addScore();  
+    }  // for end 
+    addScore(); 
         // resetCount();
 
-    }
+    } 
+
+     
+
+     /*パターン１: false数を数える方法
+        resetCount();
+        int Y = getFieldHeight() + 3;
+        int falseCount = 0;
+        int trueCount = Y - falseCount;
+        
+        for (int y = Y; y > 0; y--) {
+            for (int x = 5; x < getFieldWidth() +3 ; x++) {
+                if (bufferField[y][x] == 0) {
+                  falseCount++;
+                }
+            }
+        } 
+
+        if (trueCount >= 1) {
+            for (int _y = Y - 1; _y > 0; _y--) {
+                for (int x = 4; x < getFieldWidth()+4; x++) {
+                    bufferField[_y + 1][x] = bufferField[_y][x];
+                }
+            }
+        }
+    
+    }  */
+
 
     public void addScore(){ //スコア計算を行う
         
