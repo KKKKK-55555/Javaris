@@ -194,6 +194,16 @@ public class App extends JFrame {
                 }
             }
         });
+
+        // GhostDrop
+        im.put(KeyStroke.getKeyStroke("G"),
+                "g");
+         am.put("g", new AbstractAction() {
+             public void actionPerformed(ActionEvent e) {
+                gt.getMinoNow().setMinoY(gt.getMinoNow().getMinoY() + ga.getHardBlockCount(gt.getMinoNow()) - 1);
+                ga.drawFieldAndMino(gt.getMinoNow(), gt.getMinoNow());
+             }
+         });
     }
 
 }
