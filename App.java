@@ -115,7 +115,7 @@ public class App extends JFrame {
                     ) == false
                 ) {
                     ga.moveRight(gt.getMinoNow());
-                    ga.drawFieldAndMino(gt.getMinoNow(), gt.getMinoNow());
+                    ga.drawFieldAndMino(gt.getMinoNow(), gt.getMinoNow(), gt.getHoldMino());
                 }
             }
         });
@@ -134,7 +134,7 @@ public class App extends JFrame {
                     )
                 ) {
                     ga.moveLeft(gt.getMinoNow());
-                    ga.drawFieldAndMino(gt.getMinoNow(), gt.getMinoNow());
+                    ga.drawFieldAndMino(gt.getMinoNow(), gt.getMinoNow(), gt.getHoldMino());
                 }
             }
         });
@@ -153,7 +153,7 @@ public class App extends JFrame {
                     )
                 ) {
                     ga.moveDown(gt.getMinoNow());
-                    ga.drawFieldAndMino(gt.getMinoNow(), gt.getMinoNow());
+                    ga.drawFieldAndMino(gt.getMinoNow(), gt.getMinoNow(), gt.getHoldMino());
                 }
             }
         });
@@ -170,7 +170,7 @@ public class App extends JFrame {
                     )
                 ) {
                     ga.rotation(gt.getMinoNow());
-                    ga.drawFieldAndMino(gt.getMinoNow(), gt.getMinoNow());
+                    ga.drawFieldAndMino(gt.getMinoNow(), gt.getMinoNow(), gt.getHoldMino());
                 }
             }
         });
@@ -201,7 +201,7 @@ public class App extends JFrame {
          am.put("g", new AbstractAction() {
              public void actionPerformed(ActionEvent e) {
                 gt.getMinoNow().setMinoY(gt.getMinoNow().getMinoY() + ga.getHardBlockCount(gt.getMinoNow()) - 1);
-                ga.drawFieldAndMino(gt.getMinoNow(), gt.getMinoNow());
+                ga.drawFieldAndMino(gt.getMinoNow(), gt.getMinoNow(), gt.getHoldMino());
              }
          });
     }

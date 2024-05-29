@@ -122,7 +122,7 @@ public class GameArea { //15結合済み
     public void drawField() {
         for (int y = heightOverOffset; y < getGrandHeight()-heightUnderOffset; y++) {
             for (int x = widthOffset; x < getGrandWidth()-widthOffset; x++) {
-                System.out.printf("%s", (field[y][x] == 1 ? "回" : "・"));
+                System.out.printf("%s", (field[y][x] == 1 ? "回" : (field[y][x] == 0 ? "・" : "口")));
             }
             System.out.println();
         }
@@ -153,24 +153,20 @@ public class GameArea { //15結合済み
 
 
     // コントローラー用再描画メソッド
-    public void drawFieldAndMino(Mino mino, Mino nextMino) {
+    public void drawFieldAndMino(Mino mino, Mino nextMino, Mino holdMino) {
         if (isCollison(mino)) {
             bufferFieldAddMino(mino);
-            // eraseLine();
-            // addScore(); //操作したタイミングでしか機能しない
-            // resetCount();
             initField();
             mino.initMino();
         } else {
-            // eraseLine();
             initField();
             fieldAddMino(mino);
-            // addScore();
-            // resetCount();
+            fieldAddGhost(mino);
         }
         drawField();
+        System.out.println("NextMino  HoldMino"); 
+        drawNextMino(nextMino, holdMino); 
         System.out.println();
-       // resetCount();   //　点数が加算され続ける
     }
 
     public void fieldAddMino(Mino mino) {
@@ -190,11 +186,14 @@ public class GameArea { //15結合済み
         }
     }
 
-    public void bufferFieldAddGhost(Mino mino) {
+    public void fieldAddGhost(Mino mino) {
+
+        int ghostY = mino.getMinoY() + getHardBlockCount(mino) - 1;
+
         for (int y = 0; y < mino.getMinoSize(); y++) {
             for (int x = 0; x < mino.getMinoSize(); x++) {
-                this.bufferField[heightOverOffset + mino.getMinoY() + y][widthOffset + mino.getMinoX() + x]
-                    |= mino.getMino()[mino.getMinoAngle()][y][x];
+                this.field[heightOverOffset + ghostY + y][widthOffset + mino.getMinoX() + x]
+                    += mino.getMino()[mino.getMinoAngle()][y][x]*2;
             }
         }
     }
