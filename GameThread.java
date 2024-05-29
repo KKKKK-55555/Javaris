@@ -8,6 +8,8 @@ public class GameThread extends Thread {
     private GameArea ga;
     private Mino     mino;
     private Mino     nextMino;
+    private Mino     holdMino;
+    private boolean  isHold = false;
     
 
     public GameThread() {
@@ -36,6 +38,28 @@ public class GameThread extends Thread {
         this.mino = this.nextMino;
         this.nextMino = new Mino();
     }
+
+    // 初期holdMino　
+    public void initHoldMino() {
+        this.holdMino = this.mino;
+        this.mino     = this.nextMino;
+        this.nextMino = new Mino();
+        this.isHold   = true;
+    }
+
+    // holdMino 今のミノをholdMinoにしてholdMinoを今のミノに切り替える
+    public void changeHoldMino(){
+        Mino minoNow  = this.mino;
+        this.mino     = this.holdMino;
+        this.holdMino = minoNow; 
+    }
+
+    // isHold holdしているかどうか
+    public boolean isHold(){
+        return this.isHold;
+    }
+
+
 
     //public void nextMino(Mino nextMino){ 
       //  this.mino = nextMino;
