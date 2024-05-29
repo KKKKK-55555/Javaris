@@ -134,13 +134,18 @@ public class GameArea { //15結合済み
     }
 
     //fieldの下にnextMinoを出力
-    public void drawNextMino(Mino nextMino) {
+    public void drawNextMino(Mino nextMino, Mino holdMino) {
 
         int[][][] m = nextMino.getMino();
+        int[][][] h = holdMino.getMino();
 
         for (int y = 0; y < 4; y++) {
             for (int x = 0; x < 4; x++) {
                 System.out.printf("%s", (m[0][y][x] == 1 ? "回" : "・"));
+            }
+            // holdMinoを表示
+            for (int x = 0; x < 4; x++) {
+                System.out.printf("%s", (h[holdMino.getMinoAngle()][y][x] == 1 ? "回" : "・"));
             }
             System.out.println();
         }
