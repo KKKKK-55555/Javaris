@@ -80,7 +80,6 @@ public class GameArea { //15結合済み
     public void setName(String name){
         this.name = name;
     }
-    
 
 
     // 描画用Field初期化
@@ -102,8 +101,8 @@ public class GameArea { //15結合済み
         }
 
         // フィールドに0を敷き詰める
-        for (int y = 0; y < getFieldHeight()+ heightOverOffset - 1; y++) {
-            for (int x = widthOffset+1; x < getGrandWidth()-widthOffset-1; x++) {
+        for (int y = 0; y < getFieldHeight() + heightOverOffset - 1; y++) {
+            for (int x = widthOffset + 1; x < getGrandWidth()-widthOffset-1; x++) {
                 bufferField[y][x] = 0;
             }
         }
@@ -183,6 +182,15 @@ public class GameArea { //15結合済み
     }
 
     public void bufferFieldAddMino(Mino mino) {
+        for (int y = 0; y < mino.getMinoSize(); y++) {
+            for (int x = 0; x < mino.getMinoSize(); x++) {
+                this.bufferField[heightOverOffset + mino.getMinoY() + y][widthOffset + mino.getMinoX() + x]
+                    |= mino.getMino()[mino.getMinoAngle()][y][x];
+            }
+        }
+    }
+
+    public void bufferFieldAddGhost(Mino mino) {
         for (int y = 0; y < mino.getMinoSize(); y++) {
             for (int x = 0; x < mino.getMinoSize(); x++) {
                 this.bufferField[heightOverOffset + mino.getMinoY() + y][widthOffset + mino.getMinoX() + x]
@@ -308,6 +316,34 @@ public class GameArea { //15結合済み
 
     public void rotation(Mino mino) {
         mino.setMinoAngle((mino.getMinoAngle() + 1) % mino.getMinoAngleSize());
+    }
+
+    public int getHardBlockCount(Mino minoNow) {
+        int hardBlockCount = 0;
+
+        int _angle = minoNow.getMinoAngle();
+        int _y = minoNow.getMinoY();
+        int _x = minoNow.getMinoX();
+
+        while (true) {
+            boolean isOccupied = false;
+
+            for (int r = minoNow.getMinoSize() - 1; r >= 0; r--) {  // r means ROW
+                for (int c = 0; c < minoNow.getMinoSize(); c++) { // c means COLUMN
+                    if (getBufferField()[heightOverOffset + _y + hardBlockCount + r][widthOffset + _x + c] == 1
+                        && minoNow.getMino()[_angle][r][c] == 1) {
+                        isOccupied = true;
+                    }
+                }
+            }
+            if (isOccupied) {
+                System.out.println(hardBlockCount);
+                break;
+            } else {
+                hardBlockCount++;
+            }
+        }
+        return hardBlockCount;
     }
 
 }
