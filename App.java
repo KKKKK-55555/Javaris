@@ -174,6 +174,14 @@ public class App extends JFrame {
                 }
             }
         });
+        // skip 
+        im.put(KeyStroke.getKeyStroke("S"),
+               "s");
+        am.put("s", new AbstractAction() {
+            public void actionPerformed(ActionEvent e) {
+                gt.updateNextMino();
+            }
+        });
     }
 
 }
