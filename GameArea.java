@@ -149,6 +149,7 @@ public class GameArea { //15結合済み
             }
             System.out.println();
         }
+        System.out.println();
     }
 
 
