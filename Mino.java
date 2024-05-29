@@ -304,6 +304,10 @@ public class Mino {
         this.minoType = rand.nextInt(7) + 1;
     }
 
+    public void setMinoType(int _minoType) {
+        this.minoType = _minoType;
+    }
+
     public void setMinoAngle() {
         this.minoAngle = rand.nextInt(4);
     }

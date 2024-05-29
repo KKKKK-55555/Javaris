@@ -65,7 +65,9 @@ public class GameThread extends Thread {
         return this.isHold;
     }
 
-
+    public Mino getHoldMino() {
+        return this.holdMino;
+    }
 
     //public void nextMino(Mino nextMino){ 
       //  this.mino = nextMino;
@@ -81,7 +83,6 @@ public class GameThread extends Thread {
             // update mino, nextMino and bufferField
             if (ga.isCollison(mino)) {
                 // ゲームオーバー判定
-                // ToDo
                 if(mino.getMinoY() <= 1){
                     System.out.println("GameOver");
                     System.out.println(ga.getName() + "  あなたのスコア:" + ga.getScore());
@@ -90,26 +91,22 @@ public class GameThread extends Thread {
 
                 ga.bufferFieldAddMino(mino);
                 ga.eraseLine();
-                // ga.addScore();
-                // ga.resetCount();
                 ga.initField();
                 mino.initMino();
 
                 this.mino     = nextMino;   // 現在のminoをnextMinoに更新する
                 this.nextMino = new Mino(); // nextMinoを更新する
-                //nextMino.initMino(); 
             } else {
                 ga.eraseLine();
-                // ga.addScore();
-                // ga.resetCount();
                 ga.initField();
                 ga.fieldAddMino(mino);
+                ga.fieldAddGhost(mino);
             }
             
             // draw display
             ga.drawField();
-            System.out.println("NextMino  HoldMino"); 
-            ga.drawNextMino(nextMino, holdMino); 
+            System.out.println("NextMino  HoldMino");
+            ga.drawNextMino(nextMino, holdMino);
             // ga.drawFieldAndMino(mino);
             
             try {
