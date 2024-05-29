@@ -47,13 +47,17 @@ public class GameThread extends Thread {
         this.mino     = this.nextMino;
         this.nextMino = new Mino();
         this.isHold   = true;
+        this.holdMino.setMinoX(5);
+        this.holdMino.setMinoY(0);
     }
 
     // holdMino 今のミノをholdMinoにしてholdMinoを今のミノに切り替える
     public void changeHoldMino(){
         Mino minoNow  = this.mino;
         this.mino     = this.holdMino;
-        this.holdMino = minoNow; 
+        this.holdMino = minoNow;
+        this.holdMino.setMinoX(5);
+        this.holdMino.setMinoY(0); 
     }
 
     // isHold holdしているかどうか
