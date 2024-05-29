@@ -164,13 +164,33 @@ public class App extends JFrame {
         am.put("up", new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
                 if (!ga.isCollison(gt.getMinoNow(),
-                    gt.getMinoNow().getMinoX() + 1,
+                    gt.getMinoNow().getMinoX(),
                     gt.getMinoNow().getMinoY(),
                     (gt.getMinoNow().getMinoAngle() + 1) % gt.getMinoNow().getMinoAngleSize()
                     )
                 ) {
                     ga.rotation(gt.getMinoNow());
                     ga.drawFieldAndMino(gt.getMinoNow(), gt.getMinoNow());
+                }
+            }
+        });
+        // skip 
+        im.put(KeyStroke.getKeyStroke("S"),
+               "s");
+        am.put("s", new AbstractAction() {
+            public void actionPerformed(ActionEvent e) {
+                gt.updateNextMino();
+            }
+        });
+        // hold
+        im.put(KeyStroke.getKeyStroke("H"),
+               "h");
+        am.put("h", new AbstractAction() {
+            public void actionPerformed(ActionEvent e) {
+                if(gt.isHold()){
+                    gt.changeHoldMino();
+                } else {
+                    gt.initHoldMino();
                 }
             }
         });

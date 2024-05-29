@@ -201,6 +201,33 @@ public class Mino {
         }, // 270度
     };
 
+    private int[][][] mino_0 = {
+        {
+            { 0, 0, 0, 0 },
+            { 0, 0, 0, 0 },
+            { 0, 0, 0, 0 },
+            { 0, 0, 0, 0 },
+        }, // 0度
+        {
+            { 0, 0, 0, 0 },
+            { 0, 0, 0, 0 },
+            { 0, 0, 0, 0 },
+            { 0, 0, 0, 0 },
+        }, // 90度
+        {
+            { 0, 0, 0, 0 },
+            { 0, 0, 0, 0 },
+            { 0, 0, 0, 0 },
+            { 0, 0, 0, 0 },
+        }, // 180度
+        {
+            { 0, 0, 0, 0 },
+            { 0, 0, 0, 0 },
+            { 0, 0, 0, 0 },
+            { 0, 0, 0, 0 },
+        }, // 270度
+    };
+
     public Mino() {
         this.rand = new Random();
         this.y = 0;
@@ -239,6 +266,10 @@ public class Mino {
 
     public int getMinoY() {
         return this.y;
+    }
+
+    public int[][][] getMino0() {
+        return this.mino_0;
     }
 
     public void setMinoX(int x) {
@@ -280,6 +311,11 @@ public class Mino {
     public void setMinoAngle(int minoAngle) {
         this.minoAngle = minoAngle;
     }
+
+    public void setinitMino() {
+        this.minoTypes = this.mino_0;
+    }
+
 
     private void randSet() {
         switch (getMinoType()) {

@@ -8,6 +8,8 @@ public class GameThread extends Thread {
     private GameArea ga;
     private Mino     mino;
     private Mino     nextMino;
+    private Mino     holdMino;
+    private boolean  isHold = false;
     
 
     public GameThread() {
@@ -26,11 +28,44 @@ public class GameThread extends Thread {
         this.mino     = mino;
         this.ga       = ga;
         this.nextMino = new Mino();
+        this.holdMino = new Mino();
+        this.holdMino.setinitMino();
     }
 
     public Mino getMinoNow() {
         return this.mino;
     }
+
+    public void updateNextMino() {
+        this.mino = this.nextMino;
+        this.nextMino = new Mino();
+    }
+
+    // 初期holdMino　
+    public void initHoldMino() {
+        this.holdMino = this.mino;
+        this.mino     = this.nextMino;
+        this.nextMino = new Mino();
+        this.isHold   = true;
+        this.holdMino.setMinoX(5);
+        this.holdMino.setMinoY(0);
+    }
+
+    // holdMino 今のミノをholdMinoにしてholdMinoを今のミノに切り替える
+    public void changeHoldMino(){
+        Mino minoNow  = this.mino;
+        this.mino     = this.holdMino;
+        this.holdMino = minoNow;
+        this.holdMino.setMinoX(5);
+        this.holdMino.setMinoY(0); 
+    }
+
+    // isHold holdしているかどうか
+    public boolean isHold(){
+        return this.isHold;
+    }
+
+
 
     //public void nextMino(Mino nextMino){ 
       //  this.mino = nextMino;
@@ -73,8 +108,8 @@ public class GameThread extends Thread {
             
             // draw display
             ga.drawField();
-            System.out.println("NextMino"); 
-            ga.drawNextMino(nextMino); 
+            System.out.println("NextMino  HoldMino"); 
+            ga.drawNextMino(nextMino, holdMino); 
             // ga.drawFieldAndMino(mino);
             
             try {
