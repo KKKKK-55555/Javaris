@@ -115,6 +115,7 @@ public class App extends JFrame {
                     ) == false
                 ) {
                     ga.moveRight(gt.getMinoNow());
+                    gt.actJavali();
                     ga.drawFieldAndMino(gt.getMinoNow(), gt.getMinoNow(), gt.getHoldMino(), gt.getJavaliNow());
                 }
             }
@@ -134,6 +135,7 @@ public class App extends JFrame {
                     )
                 ) {
                     ga.moveLeft(gt.getMinoNow());
+                    gt.actJavali();
                     ga.drawFieldAndMino(gt.getMinoNow(), gt.getMinoNow(), gt.getHoldMino(), gt.getJavaliNow());
                 }
             }
@@ -153,6 +155,7 @@ public class App extends JFrame {
                     )
                 ) {
                     ga.moveDown(gt.getMinoNow());
+                    gt.actJavali();
                     ga.drawFieldAndMino(gt.getMinoNow(), gt.getMinoNow(), gt.getHoldMino(), gt.getJavaliNow());
                 }
             }
@@ -164,6 +167,7 @@ public class App extends JFrame {
         am.put("up", new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
                 ga.rotation(gt.getMinoNow(), gt.getMinoNow(), gt.getHoldMino());
+                gt.actJavali();
                 ga.drawFieldAndMino(gt.getMinoNow(), gt.getMinoNow(), gt.getHoldMino(), gt.getJavaliNow());
             }
         });

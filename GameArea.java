@@ -265,6 +265,18 @@ public class GameArea { //15結合済み
         return false;
     }
 
+    public boolean isCollisonJavali(Mino mino) {
+        for (int r = 0; r < mino.getMinoSize(); r++) {     // r means ROW
+            for (int c = 0; c < mino.getMinoSize(); c++) { // c means COLUMN
+                if (getField()[heightOverOffset + mino.getMinoY() + r][widthOffset + mino.getMinoX() + c] == 5
+                    && mino.getMino()[mino.getMinoAngle()][r][c] >= 1) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     // ライン削除処理
     public void eraseLine() {
         boolean isFill = true;

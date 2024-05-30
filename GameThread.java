@@ -69,6 +69,13 @@ public class GameThread extends Thread {
         return this.javaliNow;
     }
 
+    public void actJavali() {
+        if (ga.isCollisonJavali(mino)) {
+            this.mino     = nextMino;   // 現在のminoをnextMinoに更新する
+            this.nextMino = new Mino(); // nextMinoを更新する
+        }
+    }
+
     //public void nextMino(Mino nextMino){ 
       //  this.mino = nextMino;
     //}
@@ -79,6 +86,11 @@ public class GameThread extends Thread {
         while (true) { // ゲーム処理本体
 
             ga.moveDown(mino);
+
+            if (ga.isCollisonJavali(mino)) {
+                this.mino     = nextMino;   // 現在のminoをnextMinoに更新する
+                this.nextMino = new Mino(); // nextMinoを更新する
+            }
 
             // update mino, nextMino and bufferField
             if (ga.isCollison(mino)) {
