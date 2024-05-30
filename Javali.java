@@ -9,7 +9,7 @@ public class Javali {
     private int x, y;
     private int javaliType;
     private int javaliAngle;
-    private int javaliAngleSize = 2;
+    //private int javaliAngleSize = 2;
 
     private int[][][] javali_fixed = {
         { 
