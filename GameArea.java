@@ -132,8 +132,11 @@ public class GameArea { //15結合済み
                         break;
                     
                     case 2:
-                    System.out.printf("%s", "口");
+                    System.out.printf("%s", "🔲");
                         break;
+
+                    case -1:
+                        System.out.printf("%s", "口");
                 
                     default:
                         break;
@@ -147,7 +150,7 @@ public class GameArea { //15結合済み
          //   for (int x = 5; x < getFieldWidth() +3 ; x++){
          //       System.out.printf("%s", (field[z][x] == 1 ? "回" : "・"));
             //    }
-         System.out.println();
+        System.out.println();
             
         }
         
@@ -217,8 +220,10 @@ public class GameArea { //15結合済み
 
         for (int y = 0; y < mino.getMinoSize(); y++) {
             for (int x = 0; x < mino.getMinoSize(); x++) {
-                this.field[heightOverOffset + ghostY + y][widthOffset + mino.getMinoX() + x]
-                    += mino.getMino()[mino.getMinoAngle()][y][x]*2;
+                if (this.field[heightOverOffset + ghostY + y][widthOffset + mino.getMinoX() + x] == 0) {
+                    this.field[heightOverOffset + ghostY + y][widthOffset + mino.getMinoX() + x]
+                    = mino.getMino()[mino.getMinoAngle()][y][x]*(-1);
+                }
             }
         }
     }
@@ -384,7 +389,7 @@ public class GameArea { //15結合済み
 
             for (int r = minoNow.getMinoSize() - 1; r >= 0; r--) {  // r means ROW
                 for (int c = 0; c < minoNow.getMinoSize(); c++) { // c means COLUMN
-                    if (getBufferField()[heightOverOffset + _y + hardBlockCount + r][widthOffset + _x + c] == 1
+                    if (getBufferField()[heightOverOffset + _y + hardBlockCount + r][widthOffset + _x + c] >= 1
                         && minoNow.getMino()[_angle][r][c] == 1) {
                         isOccupied = true;
                     }
