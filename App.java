@@ -115,7 +115,10 @@ public class App extends JFrame {
                     ) == false
                 ) {
                     ga.moveRight(gt.getMinoNow());
-                    ga.drawFieldAndMino(gt.getMinoNow(), gt.getMinoNow(), gt.getHoldMino());
+                    if (ga.isCollisonJavali(gt.getMinoNow())) {
+                        gt.actJavali();
+                    }
+                    ga.drawFieldAndMino(gt.getMinoNow(), gt.getNextMino(), gt.getHoldMino(), gt.getJavaliNow(), gt);
                 }
             }
         });
@@ -134,7 +137,10 @@ public class App extends JFrame {
                     )
                 ) {
                     ga.moveLeft(gt.getMinoNow());
-                    ga.drawFieldAndMino(gt.getMinoNow(), gt.getMinoNow(), gt.getHoldMino());
+                    if (ga.isCollisonJavali(gt.getMinoNow())) {
+                        gt.actJavali();
+                    }
+                    ga.drawFieldAndMino(gt.getMinoNow(), gt.getNextMino(), gt.getHoldMino(), gt.getJavaliNow(), gt);
                 }
             }
         });
@@ -153,7 +159,10 @@ public class App extends JFrame {
                     )
                 ) {
                     ga.moveDown(gt.getMinoNow());
-                    ga.drawFieldAndMino(gt.getMinoNow(), gt.getMinoNow(), gt.getHoldMino());
+                    if (ga.isCollisonJavali(gt.getMinoNow())) {
+                        gt.actJavali();
+                    }
+                    ga.drawFieldAndMino(gt.getMinoNow(), gt.getNextMino(), gt.getHoldMino(), gt.getJavaliNow(), gt);
                 }
             }
         });
@@ -164,7 +173,10 @@ public class App extends JFrame {
         am.put("up", new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
                 ga.rotation(gt.getMinoNow(), gt.getMinoNow(), gt.getHoldMino());
-                //ga.drawFieldAndMino(gt.getMinoNow(), gt.getMinoNow(), gt.getHoldMino());
+                if (ga.isCollisonJavali(gt.getMinoNow())) {
+                    gt.actJavali();
+                }
+                ga.drawFieldAndMino(gt.getMinoNow(), gt.getNextMino(), gt.getHoldMino(), gt.getJavaliNow(), gt);
             }
         });
         // skip 
@@ -191,12 +203,12 @@ public class App extends JFrame {
         // GhostDrop
         im.put(KeyStroke.getKeyStroke("G"),
                 "g");
-         am.put("g", new AbstractAction() {
-             public void actionPerformed(ActionEvent e) {
+        am.put("g", new AbstractAction() {
+            public void actionPerformed(ActionEvent e) {
                 gt.getMinoNow().setMinoY(gt.getMinoNow().getMinoY() + ga.getHardBlockCount(gt.getMinoNow()) - 1);
-                ga.drawFieldAndMino(gt.getMinoNow(), gt.getMinoNow(), gt.getHoldMino());
-             }
-         });
+                ga.drawFieldAndMino(gt.getMinoNow(), gt.getNextMino(), gt.getHoldMino(), gt.getJavaliNow(), gt);
+            }
+        });
     }
 
 }
