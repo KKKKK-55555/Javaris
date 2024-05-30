@@ -155,11 +155,11 @@ public class Mino {
             { 0, 0, 0, 0 },
         }, // 0度
         {
-            { 0, 0, 1, 0 },
             { 1, 1, 1, 0 },
+            { 1, 0, 0, 0 },
             { 0, 0, 0, 0 },
             { 0, 0, 0, 0 },
-        }, // 90度
+        }, // 270度
         {
             { 1, 1, 0, 0 },
             { 0, 1, 0, 0 },
@@ -167,11 +167,12 @@ public class Mino {
             { 0, 0, 0, 0 },
         }, // 180度
         {
+            { 0, 0, 1, 0 },
             { 1, 1, 1, 0 },
-            { 1, 0, 0, 0 },
             { 0, 0, 0, 0 },
             { 0, 0, 0, 0 },
-        }, // 270度
+        }, // 90度
+
     };
 
     private int[][][] mino_T = {
@@ -182,11 +183,11 @@ public class Mino {
             { 0, 0, 0, 0 },
         }, // 0度
         {
-            { 0, 1, 0, 0 },
+            { 1, 0, 0, 0 },
             { 1, 1, 0, 0 },
-            { 0, 1, 0, 0 },
+            { 1, 0, 0, 0 },
             { 0, 0, 0, 0 },
-        }, // 90度
+        }, // 270度
         {
             { 1, 1, 1, 0 },
             { 0, 1, 0, 0 },
@@ -194,11 +195,54 @@ public class Mino {
             { 0, 0, 0, 0 },
         }, // 180度
         {
-            { 1, 0, 0, 0 },
+            { 0, 1, 0, 0 },
             { 1, 1, 0, 0 },
-            { 1, 0, 0, 0 },
+            { 0, 1, 0, 0 },
+            { 0, 0, 0, 0 },
+        }, // 90度
+
+    };
+
+    private int[][][] mino_0 = {
+        {
+            { 0, 0, 0, 0 },
+            { 0, 0, 0, 0 },
+            { 0, 0, 0, 0 },
+            { 0, 0, 0, 0 },
+        }, // 0度
+        {
+            { 0, 0, 0, 0 },
+            { 0, 0, 0, 0 },
+            { 0, 0, 0, 0 },
+            { 0, 0, 0, 0 },
+        }, // 90度
+        {
+            { 0, 0, 0, 0 },
+            { 0, 0, 0, 0 },
+            { 0, 0, 0, 0 },
+            { 0, 0, 0, 0 },
+        }, // 180度
+        {
+            { 0, 0, 0, 0 },
+            { 0, 0, 0, 0 },
+            { 0, 0, 0, 0 },
             { 0, 0, 0, 0 },
         }, // 270度
+    };
+
+    // I ミノ用の壁キックオフセット
+    private static final int[][][] WALL_KICK_I = {
+        {{0, 0}, {-2, 0}, {1, 0}, {-2, -1}, {1, 2}},
+        {{0, 0}, {2, 0}, {-1, 0}, {2, 1}, {-1, -2}},
+        {{0, 0}, {-1, 0}, {2, 0}, {-1, 2}, {2, -1}},
+        {{0, 0}, {1, 0}, {-2, 0}, {1, -2}, {-2, 1}}
+        };
+            // その他のミノ用の壁キックオフセット
+    private static final int[][][] WALL_KICK_NORMAL = {
+    {{0, 0}, {-1, 0}, {-1, 1}, {0, -2}, {-1, -2}},
+    {{0, 0}, {1, 0}, {1, -1}, {0, 2}, {1, 2}},
+    {{0, 0}, {1, 0}, {1, 1}, {0, -2}, {1, -2}},
+    {{0, 0}, {-1, 0}, {-1, -1}, {0, 2}, {-1, 2}}
     };
 
     public Mino() {
@@ -241,6 +285,10 @@ public class Mino {
         return this.y;
     }
 
+    public int[][][] getMino0() {
+        return this.mino_0;
+    }
+
     public void setMinoX(int x) {
         this.x = x;
     }
@@ -273,6 +321,10 @@ public class Mino {
         this.minoType = rand.nextInt(7) + 1;
     }
 
+    public void setMinoType(int _minoType) {
+        this.minoType = _minoType;
+    }
+
     public void setMinoAngle() {
         this.minoAngle = rand.nextInt(4);
     }
@@ -280,6 +332,11 @@ public class Mino {
     public void setMinoAngle(int minoAngle) {
         this.minoAngle = minoAngle;
     }
+
+    public void setinitMino() {
+        this.minoTypes = this.mino_0;
+    }
+
 
     private void randSet() {
         switch (getMinoType()) {
@@ -304,6 +361,22 @@ public class Mino {
             case 7:
                 this.minoTypes = this.mino_T;
                 break;
+        }
+    }
+
+    public void rotateMino(GameArea ga) {
+        int newAngle = (minoAngle + 1) % minoAngleSize;
+        int[][][] wallKickData = (minoType == 1) ? WALL_KICK_I : WALL_KICK_NORMAL;
+        for (int[] offset : wallKickData[minoAngle]) {
+            int newX = x + offset[0];
+            int newY = y + offset[1];
+
+            if (!ga.isCollison(this, newX, newY, newAngle)) {
+                x = newX;
+                y = newY;
+                setMinoAngle(newAngle);
+                return;
+            }
         }
     }
 
