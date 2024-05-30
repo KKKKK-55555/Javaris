@@ -228,6 +228,21 @@ public class Mino {
         }, // 270度
     };
 
+    // I ミノ用の壁キックオフセット
+    private static final int[][][] WALL_KICK_I = {
+        {{0, 0}, {-2, 0}, {1, 0}, {-2, -1}, {1, 2}},
+        {{0, 0}, {2, 0}, {-1, 0}, {2, 1}, {-1, -2}},
+        {{0, 0}, {-1, 0}, {2, 0}, {-1, 2}, {2, -1}},
+        {{0, 0}, {1, 0}, {-2, 0}, {1, -2}, {-2, 1}}
+        };
+            // その他のミノ用の壁キックオフセット
+    private static final int[][][] WALL_KICK_NORMAL = {
+    {{0, 0}, {-1, 0}, {-1, 1}, {0, -2}, {-1, -2}},
+    {{0, 0}, {1, 0}, {1, -1}, {0, 2}, {1, 2}},
+    {{0, 0}, {1, 0}, {1, 1}, {0, -2}, {1, -2}},
+    {{0, 0}, {-1, 0}, {-1, -1}, {0, 2}, {-1, 2}}
+    };
+
     public Mino() {
         this.rand = new Random();
         this.y = 0;
@@ -344,6 +359,22 @@ public class Mino {
             case 7:
                 this.minoTypes = this.mino_T;
                 break;
+        }
+    }
+
+    public void rotateMino(GameArea ga) {
+        int newAngle = (minoAngle + 1) % minoAngleSize;
+        int[][][] wallKickData = (minoType == 1) ? WALL_KICK_I : WALL_KICK_NORMAL;
+        for (int[] offset : wallKickData[minoAngle]) {
+            int newX = x + offset[0];
+            int newY = y + offset[1];
+
+            if (!ga.isCollison(this, newX, newY, newAngle)) {
+                x = newX;
+                y = newY;
+                setMinoAngle(newAngle);
+                return;
+            }
         }
     }
 

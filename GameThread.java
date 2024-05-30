@@ -104,13 +104,15 @@ public class GameThread extends Thread {
             }
             
             // draw display
+            /*
             ga.drawField();
             System.out.println("NextMino  HoldMino");
             ga.drawNextMino(nextMino, holdMino);
-            // ga.drawFieldAndMino(mino);
+             */
+            ga.drawFieldAndMino(mino, nextMino, holdMino);
             
             try {
-                Thread.sleep(1000);
+                Thread.sleep(1100);
             } catch (InterruptedException ex) {
                 Logger.getLogger(GameThread.class.getName()).log(Level.SEVERE, null, ex);
             }
