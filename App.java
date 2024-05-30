@@ -38,11 +38,14 @@ public class App extends JFrame {
     // mainメソッド 1番最初に動く特別なメソッド
     public static void main(String[] args) throws Exception {
         // Start Screen
-        System.out.println("Tetris");
+        System.out.println("         ______\n        /     /\n        |   _/\n        |  |\n        |  |\n        | @|\n  /|    |  |\n / |    |  |\n/  |    |  |avaris\n\\  \\    /  |\n \\  \\__/  /\n  \\______/");
+        System.out.println("---------------------------");
+        System.out.println("Javarisを立ち上げています\n");
         System.out.print("名前を入力してください:");
 
+
         // Scan player's name
-        Scanner sc = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in, "utf-8");
         String name = sc.next();
         
         
@@ -58,6 +61,11 @@ public class App extends JFrame {
             GameArea player = new GameArea();
             player.setName("ゲスト");
         }
+
+        System.out.println();
+        System.out.println("<操作方法>");
+        System.out.println("-----------------\nキー：操作\n-----------------\n→ 　：右移動\n← 　：左移動\n↓ 　：下移動\n↑ 　：回転\nS 　：スキップ\nH 　：ホールド\nG 　：ハードドロップ\n-----------------\nスタートしたらJavaコントローラーを立ち上げてください！\n");
+
         
         System.out.println("EnterKeyを押してスタート！！");
         while ((System.in.read()) != '\n') ;
