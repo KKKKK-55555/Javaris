@@ -38,7 +38,7 @@ public class App extends JFrame {
     // mainメソッド 1番最初に動く特別なメソッド
     public static void main(String[] args) throws Exception {
         // Start Screen
-        System.out.println("Tetris");
+        System.out.println("Javaris");
         System.out.print("名前を入力してください:");
 
         // Scan player's name
@@ -54,11 +54,16 @@ public class App extends JFrame {
             GameArea player = new GameArea();
             player.setName(name);
         } else {
-            System.out.println("ゲスト");
+            System.out.println("ようこそゲストさん！");
             GameArea player = new GameArea();
             player.setName("ゲスト");
         }
-        
+
+        System.out.println();
+        System.out.println("<操作方法>");
+        System.out.println("-----------------\nキー：操作\n-----------------\n→ 　：右移動\n← 　：左移動\n↓ 　：下移動\n↑ 　：回転\nS 　：スキップ\nH 　：ホールド\nG 　：ハードドロップ\n-----------------\nスタートしたら□を立ち上げてね！");
+        System.out.println();
+        System.out.println();
         System.out.println("EnterKeyを押してスタート！！");
         while ((System.in.read()) != '\n') ;
     
@@ -115,7 +120,7 @@ public class App extends JFrame {
                     ) == false
                 ) {
                     ga.moveRight(gt.getMinoNow());
-                    //ga.drawFieldAndMino(gt.getMinoNow(), gt.getMinoNow());
+                    ga.drawFieldAndMino(gt.getMinoNow(), gt.getMinoNow(), gt.getHoldMino());
                 }
             }
         });
@@ -134,7 +139,7 @@ public class App extends JFrame {
                     )
                 ) {
                     ga.moveLeft(gt.getMinoNow());
-                    //ga.drawFieldAndMino(gt.getMinoNow(), gt.getMinoNow());
+                    ga.drawFieldAndMino(gt.getMinoNow(), gt.getMinoNow(), gt.getHoldMino());
                 }
             }
         });
@@ -153,7 +158,7 @@ public class App extends JFrame {
                     )
                 ) {
                     ga.moveDown(gt.getMinoNow());
-                    //ga.drawFieldAndMino(gt.getMinoNow(), gt.getMinoNow());
+                    ga.drawFieldAndMino(gt.getMinoNow(), gt.getMinoNow(), gt.getHoldMino());
                 }
             }
         });
@@ -164,16 +169,46 @@ public class App extends JFrame {
         am.put("up", new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
                 if (!ga.isCollison(gt.getMinoNow(),
-                    gt.getMinoNow().getMinoX() + 1,
+                    gt.getMinoNow().getMinoX(),
                     gt.getMinoNow().getMinoY(),
                     (gt.getMinoNow().getMinoAngle() + 1) % gt.getMinoNow().getMinoAngleSize()
                     )
                 ) {
                     ga.rotation(gt.getMinoNow());
-                    //ga.drawFieldAndMino(gt.getMinoNow(), gt.getMinoNow());
+                    ga.drawFieldAndMino(gt.getMinoNow(), gt.getMinoNow(), gt.getHoldMino());
                 }
             }
         });
+        // skip 
+        im.put(KeyStroke.getKeyStroke("S"),
+               "s");
+        am.put("s", new AbstractAction() {
+            public void actionPerformed(ActionEvent e) {
+                gt.updateNextMino();
+            }
+        });
+        // hold
+        im.put(KeyStroke.getKeyStroke("H"),
+               "h");
+        am.put("h", new AbstractAction() {
+            public void actionPerformed(ActionEvent e) {
+                if(gt.isHold()){
+                    gt.changeHoldMino();
+                } else {
+                    gt.initHoldMino();
+                }
+            }
+        });
+
+        // GhostDrop
+        im.put(KeyStroke.getKeyStroke("G"),
+                "g");
+         am.put("g", new AbstractAction() {
+             public void actionPerformed(ActionEvent e) {
+                gt.getMinoNow().setMinoY(gt.getMinoNow().getMinoY() + ga.getHardBlockCount(gt.getMinoNow()) - 1);
+                ga.drawFieldAndMino(gt.getMinoNow(), gt.getMinoNow(), gt.getHoldMino());
+             }
+         });
     }
 
 }
