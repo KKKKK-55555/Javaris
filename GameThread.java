@@ -86,19 +86,16 @@ public class GameThread extends Thread {
             ga.javaliScore();
             ga.initBufferField();
             this.javaliNow.randSet();
+        } else {
+            ga.decScore();
         }
 
         ga.eraseLine();
         ga.initField();
         mino.initMino();
 
-        this.mino     = nextMino;   // 現在のminoをnextMinoに更新する
-        this.nextMino = new Mino(); // nextMinoを更新する
+        updateNextMino();
     }
-
-    //public void nextMino(Mino nextMino){ 
-      //  this.mino = nextMino;
-    //}
 
     @Override
     public void run() {
@@ -106,12 +103,10 @@ public class GameThread extends Thread {
         while (true) { // ゲーム処理本体
 
             ga.moveDown(mino);
-            //actJavali();
 
-            // update mino, nextMino and bufferField
-            if (ga.isCollison(mino) && !ga.isCollisonJavali(holdMino)) {
+            if (ga.isCollison(mino) && !ga.isMinoCollisionJavali(holdMino)) {
                 // ゲームオーバー判定
-                if(mino.getMinoY() <= 1){
+                if(mino.getMinoY() <= 1) {
                     System.out.println("GameOver");
                     System.out.println(ga.getName() + "  あなたのスコア:" + ga.getScore());
                     System.exit(0);
@@ -119,12 +114,11 @@ public class GameThread extends Thread {
 
                 ga.eraseLine();
                 ga.initField();
+                ga.fieldAddJavali(javaliNow);
                 mino.initMino();
-
-                this.mino     = nextMino;   // 現在のminoをnextMinoに更新する
-                this.nextMino = new Mino(); // nextMinoを更新する
+                updateNextMino();
             } else {
-                if (ga.isCollisonJavali(mino)) {
+                if (ga.isMinoCollisionJavali(mino)) {
                     actJavali();
                 }
                 ga.eraseLine();
@@ -136,8 +130,8 @@ public class GameThread extends Thread {
             
             // draw display
             ga.drawField();
-            System.out.println("NextMino  HoldMino"); 
-            ga.drawNextMino(nextMino, holdMino); 
+            System.out.println("NextMino  HoldMino");
+            ga.drawNextMino(nextMino, holdMino);
             System.out.println();
             ga.drawFieldAndMino(mino, nextMino, holdMino, javaliNow);
             

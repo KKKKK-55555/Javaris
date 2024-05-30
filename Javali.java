@@ -22,12 +22,8 @@ public class Javali {
 
     public Javali() {
         this.rand = new Random();
-        this.y = 5 + rand.nextInt(5);
-        this.x = rand.nextInt(10);
         setJavaliType();
         setJavaliAngle();
-        // this.minoType = 1; // debug用
-        // this.minoAngle = 1;// debug用
         randSet();
     }
 
@@ -68,7 +64,7 @@ public class Javali {
             case 1:
                 this.javaliTypes = this.javali_fixed;
                 this.y = 5 + rand.nextInt(5);
-                this.x = rand.nextInt(10);
+                this.x = 1 + rand.nextInt(9);
                 break;
         }
     }

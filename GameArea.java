@@ -81,6 +81,14 @@ public class GameArea { //15結合済み
         this.name = name;
     }
 
+    public void decScore() {
+        if (score < 0) {
+            this.score = 0;
+        } else {
+            this.score -= this.score/20;
+        }
+    }
+
 
     // 描画用Field初期化
     public void initField() {
@@ -106,16 +114,6 @@ public class GameArea { //15結合済み
                 bufferField[y][x] = 0;
             }
         }
-        /*
-        // 壁を作る
-        for (int y = 0; y < getFieldHeight(); y++) {
-            bufferField[y][0] = bufferField[y][getFieldWidth() - 1] = 1;
-        }
-        // 床を作る
-        for (int x = 0; x < getFieldWidth(); x++) {
-            bufferField[getFieldHeight() - 1][x] = 1;
-        }
-        */
     }
 
     // 描画メソッド
@@ -168,6 +166,7 @@ public class GameArea { //15結合済み
             for (int x = 0; x < 4; x++) {
                 System.out.printf("%s", (m[0][y][x] == 1 ? "回" : "・"));
             }
+            System.out.printf("%s", "  ");
             // holdMinoを表示
             for (int x = 0; x < 4; x++) {
                 System.out.printf("%s", (h[holdMino.getMinoAngle()][y][x] == 1 ? "回" : "・"));
@@ -178,7 +177,7 @@ public class GameArea { //15結合済み
     }
 
 
-    // コントローラー用再描画メソッド
+    // 描画メソッド
     public void drawFieldAndMino(Mino mino, Mino nextMino, Mino holdMino, Javali javaliNow, GameThread gt) {
         if (isCollison(mino)) {
             bufferFieldAddMino(mino);
@@ -189,8 +188,8 @@ public class GameArea { //15結合済み
             initField();
             fieldAddMino(mino);
             fieldAddGhost(mino);
-            fieldAddJavali(javaliNow);
         }
+        fieldAddJavali(javaliNow);
         drawField();
         System.out.println("NextMino  HoldMino"); 
         drawNextMino(nextMino, holdMino); 
@@ -280,7 +279,8 @@ public class GameArea { //15結合済み
         return false;
     }
 
-    public boolean isCollisonJavali(Mino mino) {
+    public boolean isMinoCollisionJavali(Mino mino) {
+
         for (int r = 0; r < mino.getMinoSize(); r++) {     // r means ROW
             for (int c = 0; c < mino.getMinoSize(); c++) { // c means COLUMN
                 if (getField()[heightOverOffset + mino.getMinoY() + r][widthOffset + mino.getMinoX() + c] == 5
@@ -298,14 +298,14 @@ public class GameArea { //15結合済み
         resetCount();
 
         for ( int y = getFieldHeight() + 3; y > 0; y--) {
-            for (int x = 5; x < getFieldWidth() +3 ; x++) {
+
+            for (int x = 5; x < getFieldWidth() + 3 ; x++) {
                 if (bufferField[y][x] == 0) {
                     isFill = false;
                 }
             }
-            
-
-        if (isFill) {
+        
+            if (isFill) {
                 for (int _y = y - 1; _y > 0; _y--) {
                     for (int x = 4; x < getFieldWidth()+4; x++) {
                         bufferField[_y + 1][x] = bufferField[_y][x];
@@ -313,18 +313,13 @@ public class GameArea { //15結合済み
                 }
                 this.linecount++; 
                 this.linetotal++;
-                y ++; 
+                y++; 
 
-            } // if end
+            }
             isFill = true;
-            // addScore(); //1行ごとに処理された
-            // resetCount(); // 0のまま更新されない
-    }  // for end 
-    addScore(); 
-        // resetCount();
-
+        }
+        addScore();
     }
-
 
     public void addScore(){ //スコア計算を行う
         
@@ -378,7 +373,7 @@ public class GameArea { //15結合済み
                 }
             }
         }
-        score = _score*4;
+        score = _score*20;
     }
     
 
@@ -403,8 +398,8 @@ public class GameArea { //15結合済み
         int hardBlockCount = 0;
 
         int _angle = minoNow.getMinoAngle();
-        int _y = minoNow.getMinoY();
-        int _x = minoNow.getMinoX();
+        int _y     = minoNow.getMinoY();
+        int _x     = minoNow.getMinoX();
 
         while (true) {
             boolean isOccupied = false;
