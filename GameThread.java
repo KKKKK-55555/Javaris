@@ -28,8 +28,20 @@ public class GameThread extends Thread {
         this.javaliNow = new Javali();
     }
 
+    public void setMinoNow(Mino _mino) {
+        this.mino = _mino;
+    }
+
+    public void setNextMino(Mino _nextMino) {
+        this.nextMino = _nextMino;
+    }
+
     public Mino getMinoNow() {
         return this.mino;
+    }
+
+    public Mino getNextMino() {
+        return this.nextMino;
     }
 
     public void updateNextMino() {
@@ -70,10 +82,18 @@ public class GameThread extends Thread {
     }
 
     public void actJavali() {
-        if (ga.isCollisonJavali(mino)) {
-            this.mino     = nextMino;   // 現在のminoをnextMinoに更新する
-            this.nextMino = new Mino(); // nextMinoを更新する
+        if (this.mino.getMinoType() == 1) {
+            ga.javaliScore();
+            ga.initBufferField();
+            this.javaliNow.randSet();
         }
+
+        ga.eraseLine();
+        ga.initField();
+        mino.initMino();
+
+        this.mino     = nextMino;   // 現在のminoをnextMinoに更新する
+        this.nextMino = new Mino(); // nextMinoを更新する
     }
 
     //public void nextMino(Mino nextMino){ 
@@ -86,14 +106,10 @@ public class GameThread extends Thread {
         while (true) { // ゲーム処理本体
 
             ga.moveDown(mino);
-
-            if (ga.isCollisonJavali(mino)) {
-                this.mino     = nextMino;   // 現在のminoをnextMinoに更新する
-                this.nextMino = new Mino(); // nextMinoを更新する
-            }
+            //actJavali();
 
             // update mino, nextMino and bufferField
-            if (ga.isCollison(mino)) {
+            if (ga.isCollison(mino) && !ga.isCollisonJavali(holdMino)) {
                 // ゲームオーバー判定
                 if(mino.getMinoY() <= 1){
                     System.out.println("GameOver");
@@ -101,7 +117,6 @@ public class GameThread extends Thread {
                     System.exit(0);
                 }
 
-                ga.bufferFieldAddMino(mino);
                 ga.eraseLine();
                 ga.initField();
                 mino.initMino();
@@ -109,6 +124,9 @@ public class GameThread extends Thread {
                 this.mino     = nextMino;   // 現在のminoをnextMinoに更新する
                 this.nextMino = new Mino(); // nextMinoを更新する
             } else {
+                if (ga.isCollisonJavali(mino)) {
+                    actJavali();
+                }
                 ga.eraseLine();
                 ga.initField();
                 ga.fieldAddMino(mino);
@@ -117,11 +135,10 @@ public class GameThread extends Thread {
             }
             
             // draw display
-            /*
             ga.drawField();
-            System.out.println("NextMino  HoldMino");
-            ga.drawNextMino(nextMino, holdMino);
-             */
+            System.out.println("NextMino  HoldMino"); 
+            ga.drawNextMino(nextMino, holdMino); 
+            System.out.println();
             ga.drawFieldAndMino(mino, nextMino, holdMino, javaliNow);
             
             try {

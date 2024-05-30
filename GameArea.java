@@ -179,11 +179,12 @@ public class GameArea { //15結合済み
 
 
     // コントローラー用再描画メソッド
-    public void drawFieldAndMino(Mino mino, Mino nextMino, Mino holdMino, Javali javaliNow) {
+    public void drawFieldAndMino(Mino mino, Mino nextMino, Mino holdMino, Javali javaliNow, GameThread gt) {
         if (isCollison(mino)) {
             bufferFieldAddMino(mino);
             initField();
             mino.initMino();
+            gt.updateNextMino();
         } else {
             initField();
             fieldAddMino(mino);
@@ -194,6 +195,20 @@ public class GameArea { //15結合済み
         System.out.println("NextMino  HoldMino"); 
         drawNextMino(nextMino, holdMino); 
         System.out.println();
+    }
+
+    public void drawFieldAndMino(Mino mino, Mino nextMino, Mino holdMino, Javali javaliNow) {
+        if (isCollison(mino)) {
+            bufferFieldAddMino(mino);
+            initField();
+            mino.initMino();
+            //updateNextMino();
+        } else {
+            initField();
+            fieldAddMino(mino);
+            fieldAddGhost(mino);
+            fieldAddJavali(javaliNow);
+        }
     }
 
     public void fieldAddMino(Mino mino) {
@@ -352,9 +367,20 @@ public class GameArea { //15結合済み
                     break;
             }
     
+    }
+
+    public void javaliScore() {
+        int _score = 0;
+        for (int r = 0; r < grandHeight; r++) {
+            for (int c = 0; c < grandWidth; c++) {
+                if (field[r][c] == 1) {
+                    _score++;
+                }
+            }
         }
-        
-    // }
+        score = _score*4;
+    }
+    
 
     // コントローラー呼び出しメソッド← ↓ → 回転 ↑
     public void moveDown(Mino mino) {
