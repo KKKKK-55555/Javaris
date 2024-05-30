@@ -25,13 +25,12 @@ public class App extends JFrame {
 
         this.ga.setName(name);
 
-        // スレッド呼び出し
+        // スレッドを呼び出す
         this.gt = new GameThread(mino, ga);
         gt.start();
         
-        // コントローラーの呼び出し
+        // コントローラーを呼び出す
         initControls();
-
     }
 
 
@@ -123,11 +122,12 @@ public class App extends JFrame {
                     ) == false
                 ) {
                     ga.moveRight(gt.getMinoNow());
-                    if (ga.isCollisonJavali(gt.getMinoNow())) {
+                    if (ga.isMinoCollisionJavali(gt.getMinoNow())) {
                         gt.actJavali();
                     }
                     ga.drawFieldAndMino(gt.getMinoNow(), gt.getNextMino(), gt.getHoldMino(), gt.getJavaliNow(), gt);
                 }
+                
             }
         });
 
@@ -145,7 +145,7 @@ public class App extends JFrame {
                     )
                 ) {
                     ga.moveLeft(gt.getMinoNow());
-                    if (ga.isCollisonJavali(gt.getMinoNow())) {
+                    if (ga.isMinoCollisionJavali(gt.getMinoNow())) {
                         gt.actJavali();
                     }
                     ga.drawFieldAndMino(gt.getMinoNow(), gt.getNextMino(), gt.getHoldMino(), gt.getJavaliNow(), gt);
@@ -167,7 +167,7 @@ public class App extends JFrame {
                     )
                 ) {
                     ga.moveDown(gt.getMinoNow());
-                    if (ga.isCollisonJavali(gt.getMinoNow())) {
+                    if (ga.isMinoCollisionJavali(gt.getMinoNow())) {
                         gt.actJavali();
                     }
                     ga.drawFieldAndMino(gt.getMinoNow(), gt.getNextMino(), gt.getHoldMino(), gt.getJavaliNow(), gt);
@@ -181,7 +181,7 @@ public class App extends JFrame {
         am.put("up", new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
                 ga.rotation(gt.getMinoNow(), gt.getMinoNow(), gt.getHoldMino());
-                if (ga.isCollisonJavali(gt.getMinoNow())) {
+                if (ga.isMinoCollisionJavali(gt.getMinoNow())) {
                     gt.actJavali();
                 }
                 ga.drawFieldAndMino(gt.getMinoNow(), gt.getNextMino(), gt.getHoldMino(), gt.getJavaliNow(), gt);
@@ -208,7 +208,7 @@ public class App extends JFrame {
             }
         });
 
-        // GhostDrop
+        // Hard Drop
         im.put(KeyStroke.getKeyStroke("G"),
                 "g");
         am.put("g", new AbstractAction() {
