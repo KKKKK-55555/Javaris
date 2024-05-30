@@ -115,7 +115,7 @@ public class App extends JFrame {
                     ) == false
                 ) {
                     ga.moveRight(gt.getMinoNow());
-                    ga.drawFieldAndMino(gt.getMinoNow(), gt.getMinoNow(), gt.getHoldMino());
+                    ga.drawFieldAndMino(gt.getMinoNow(), gt.getMinoNow(), gt.getHoldMino(), gt.getJavaliNow());
                 }
             }
         });
@@ -134,7 +134,7 @@ public class App extends JFrame {
                     )
                 ) {
                     ga.moveLeft(gt.getMinoNow());
-                    ga.drawFieldAndMino(gt.getMinoNow(), gt.getMinoNow(), gt.getHoldMino());
+                    ga.drawFieldAndMino(gt.getMinoNow(), gt.getMinoNow(), gt.getHoldMino(), gt.getJavaliNow());
                 }
             }
         });
@@ -153,7 +153,7 @@ public class App extends JFrame {
                     )
                 ) {
                     ga.moveDown(gt.getMinoNow());
-                    ga.drawFieldAndMino(gt.getMinoNow(), gt.getMinoNow(), gt.getHoldMino());
+                    ga.drawFieldAndMino(gt.getMinoNow(), gt.getMinoNow(), gt.getHoldMino(), gt.getJavaliNow());
                 }
             }
         });
@@ -164,7 +164,7 @@ public class App extends JFrame {
         am.put("up", new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
                 ga.rotation(gt.getMinoNow(), gt.getMinoNow(), gt.getHoldMino());
-                //ga.drawFieldAndMino(gt.getMinoNow(), gt.getMinoNow(), gt.getHoldMino());
+                ga.drawFieldAndMino(gt.getMinoNow(), gt.getMinoNow(), gt.getHoldMino(), gt.getJavaliNow());
             }
         });
         // skip 
@@ -194,7 +194,7 @@ public class App extends JFrame {
          am.put("g", new AbstractAction() {
              public void actionPerformed(ActionEvent e) {
                 gt.getMinoNow().setMinoY(gt.getMinoNow().getMinoY() + ga.getHardBlockCount(gt.getMinoNow()) - 1);
-                ga.drawFieldAndMino(gt.getMinoNow(), gt.getMinoNow(), gt.getHoldMino());
+                ga.drawFieldAndMino(gt.getMinoNow(), gt.getMinoNow(), gt.getHoldMino(), gt.getJavaliNow());
              }
          });
     }

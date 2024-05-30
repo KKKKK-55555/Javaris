@@ -10,6 +10,7 @@ public class GameThread extends Thread {
     private Mino     nextMino;
     private Mino     holdMino;
     private boolean  isHold = false;
+    private Javali   javaliNow;
     
 
     public GameThread() {
@@ -18,18 +19,13 @@ public class GameThread extends Thread {
         this.nextMino = new Mino();
     }
 
-    public GameThread(Mino mino, GameArea ga, Mino nextMino) {
-        this.mino     = mino;
-        this.ga       = ga;
-        this.nextMino = nextMino;
-    }
-
     public GameThread(Mino mino, GameArea ga) {
         this.mino     = mino;
         this.ga       = ga;
         this.nextMino = new Mino();
         this.holdMino = new Mino();
         this.holdMino.setinitMino();
+        this.javaliNow = new Javali();
     }
 
     public Mino getMinoNow() {
@@ -69,6 +65,10 @@ public class GameThread extends Thread {
         return this.holdMino;
     }
 
+    public Javali getJavaliNow() {
+        return this.javaliNow;
+    }
+
     //public void nextMino(Mino nextMino){ 
       //  this.mino = nextMino;
     //}
@@ -101,6 +101,7 @@ public class GameThread extends Thread {
                 ga.initField();
                 ga.fieldAddMino(mino);
                 ga.fieldAddGhost(mino);
+                ga.fieldAddJavali(javaliNow);
             }
             
             // draw display
@@ -109,7 +110,7 @@ public class GameThread extends Thread {
             System.out.println("NextMino  HoldMino");
             ga.drawNextMino(nextMino, holdMino);
              */
-            ga.drawFieldAndMino(mino, nextMino, holdMino);
+            ga.drawFieldAndMino(mino, nextMino, holdMino, javaliNow);
             
             try {
                 Thread.sleep(1100);
