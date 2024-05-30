@@ -163,15 +163,8 @@ public class App extends JFrame {
                "up");
         am.put("up", new AbstractAction() {
             public void actionPerformed(ActionEvent e) {
-                if (!ga.isCollison(gt.getMinoNow(),
-                    gt.getMinoNow().getMinoX(),
-                    gt.getMinoNow().getMinoY(),
-                    (gt.getMinoNow().getMinoAngle() + 1) % gt.getMinoNow().getMinoAngleSize()
-                    )
-                ) {
-                    ga.rotation(gt.getMinoNow());
-                    ga.drawFieldAndMino(gt.getMinoNow(), gt.getMinoNow(), gt.getHoldMino());
-                }
+                ga.rotation(gt.getMinoNow(), gt.getMinoNow(), gt.getHoldMino());
+                //ga.drawFieldAndMino(gt.getMinoNow(), gt.getMinoNow(), gt.getHoldMino());
             }
         });
         // skip 

@@ -120,7 +120,7 @@ public class GameArea { //15結合済み
 
     // 描画メソッド
     public void drawField() {
-         for (int y = heightOverOffset; y < getGrandHeight()-heightUnderOffset; y++) {
+        for (int y = heightOverOffset; y < getGrandHeight()-heightUnderOffset; y++) {
             for (int x = widthOffset; x < getGrandWidth()-widthOffset; x++) {
                 switch (field[y][x]) {
                     case 0:
@@ -373,8 +373,9 @@ public class GameArea { //15結合済み
         mino.decMinoX();
     }
 
-    public void rotation(Mino mino) {
-        mino.setMinoAngle((mino.getMinoAngle() + 1) % mino.getMinoAngleSize());
+    public void rotation(Mino mino, Mino minoNext, Mino minoHold) {
+        mino.rotateMino(this);
+        drawFieldAndMino(mino, minoNext, minoHold);
     }
 
     public int getHardBlockCount(Mino minoNow) {
