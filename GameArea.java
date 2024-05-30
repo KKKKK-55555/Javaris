@@ -120,7 +120,7 @@ public class GameArea { //15結合済み
 
     // 描画メソッド
     public void drawField() {
-        for (int y = heightOverOffset; y < getGrandHeight()-heightUnderOffset; y++) {
+         for (int y = heightOverOffset; y < getGrandHeight()-heightUnderOffset; y++) {
             for (int x = widthOffset; x < getGrandWidth()-widthOffset; x++) {
                 switch (field[y][x]) {
                     case 0:
